@@ -4,26 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp3
+namespace yturf
 {
     internal class Program
     {
         static void Main(string[] args)
-        {
-            string name;
-            int age;
-            string zodiacSiign;
-            string placeOfWork;
-            Console.Write("Как вас зовут? ");
-            name = Console.ReadLine();
-            Console.Write("Сколько вам лет? ");
-            age = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Кто вы по знаку зодиака? ");
-            zodiacSiign = Console.ReadLine();
-            Console.Write("Где вы работаете? ");
-            placeOfWork = Console.ReadLine();
-            Console.WriteLine($"Вас зовут {name}, вам {age} год, вы {zodiacSiign} и работаете на {placeOfWork}");
-            Console.ReadKey();
+        {           
+            float number = 3.5f;
+            double penPrice = 15;
+            bool haveMoney = true;
+            long damage = 2000;
+            char letter = 'A';
+            byte cuds = 10;
+            string cityTitle = "Paris";
+            short carsGreen = 2;
+            int burgers = 5;
+            uint housesBig = 2;                     
         }
     }
 }
