@@ -4,25 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp3
+namespace Картинки
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            string name;
-            int age;
-            string zodiacSiign;
-            string placeOfWork;
-            Console.Write("Как вас зовут? ");
-            name = Console.ReadLine();
-            Console.Write("Сколько вам лет? ");
-            age = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Кто вы по знаку зодиака? ");
-            zodiacSiign = Console.ReadLine();
-            Console.Write("Где вы работаете? ");
-            placeOfWork = Console.ReadLine();
-            Console.WriteLine($"Вас зовут {name}, вам {age} год, вы {zodiacSiign} и работаете на {placeOfWork}");
+            int numberOfImagesInTheAlbum = 52;
+            int numberOfImagesInARow = 3;
+            int numberOfFullRows;
+            int theRestOfTheImages;
+
+            numberOfFullRows = numberOfImagesInTheAlbum / numberOfImagesInARow;
+            theRestOfTheImages = numberOfImagesInTheAlbum % numberOfImagesInARow;
+
+            Console.WriteLine("Количество полных рядов с картинками: " + numberOfFullRows);
+            Console.WriteLine("Остаток картинок: " + theRestOfTheImages);
+
             Console.ReadKey();
         }
     }
