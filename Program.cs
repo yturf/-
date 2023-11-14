@@ -16,9 +16,9 @@ namespace Перестановка_местами1
             Console.WriteLine(name);
             Console.WriteLine(surname);
 
-            string name1 = "ivanov";
-            name = "petr";
-            surname = "ivanov";
+            string name1 = name;
+            name = surname;
+            surname = name1;
 
             Console.WriteLine(name);
             Console.WriteLine(surname);
