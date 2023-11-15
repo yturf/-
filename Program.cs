@@ -4,24 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Перестановка_местами1
+namespace Магазин_кристаллов
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            string name = "ivanov";
-            string surname = "petr";
+            int money;
+            int crystals;
+            int crystalUnitPrice = 15;
 
-            Console.WriteLine(name);
-            Console.WriteLine(surname);
+            Console.Write("Сколько у вас золота? ");
+            money = Convert.ToInt32(Console.ReadLine());
 
-            string name1 = name;
-            name = surname;
-            surname = name1;
+            Console.Write($"Здраствуйте! Один кристалл у нас стоит {crystalUnitPrice} золотых монет. Сколько вы хотите купить? ");
+            crystals = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine(name);
-            Console.WriteLine(surname);
+            money -= crystals * crystalUnitPrice;
+            Console.Write($"Вы купили {crystals} кристаллов и у вас осталось {money} монет.");
 
             Console.ReadKey();
         }
