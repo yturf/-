@@ -1,29 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp2
+namespace ConsoleApp3
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            int numberOfPeopleInQueue;
-            int fixedReceptionTime = 10;
-            int allWaitingTimeForReception;
+            int countOfPeopleInQueue;
+            int fixedReceptionTimeInMinutes = 10;
+            int allWaitingTimeForReceptionInHours;
             int waitingHours;
             int waitingMinutes;
+            int quantityOfMinutesPerHour = 60;
 
             Console.Write("Введите количество старушек в очереди: ");
-            numberOfPeopleInQueue = Convert.ToInt32(Console.ReadLine());
+            countOfPeopleInQueue = Convert.ToInt32(Console.ReadLine());
 
-            allWaitingTimeForReception = numberOfPeopleInQueue * fixedReceptionTime;
-            // Следует делить на кол-во минут в часе, т. е. 60.
-            waitingHours = allWaitingTimeForReception / 60;
-            waitingMinutes = allWaitingTimeForReception % 60;
+            allWaitingTimeForReceptionInHours = countOfPeopleInQueue * fixedReceptionTimeInMinutes;
+            waitingHours = allWaitingTimeForReceptionInHours / quantityOfMinutesPerHour;
+            waitingMinutes = allWaitingTimeForReceptionInHours % quantityOfMinutesPerHour;
 
             Console.WriteLine("Вам нужно отстоять в очереди " + waitingHours + " часа и " + waitingMinutes + " минут.");
 
