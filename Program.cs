@@ -12,7 +12,7 @@ namespace ConsoleApp3
         {
             int countOfPeopleInQueue;
             int fixedReceptionTimeInMinutes = 10;
-            int allWaitingTimeForReceptionInHours;
+            int allWaitingTimeForReceptionInMinutes;
             int waitingHours;
             int waitingMinutes;
             int quantityOfMinutesPerHour = 60;
@@ -20,9 +20,9 @@ namespace ConsoleApp3
             Console.Write("Введите количество старушек в очереди: ");
             countOfPeopleInQueue = Convert.ToInt32(Console.ReadLine());
 
-            allWaitingTimeForReceptionInHours = countOfPeopleInQueue * fixedReceptionTimeInMinutes;
-            waitingHours = allWaitingTimeForReceptionInHours / quantityOfMinutesPerHour;
-            waitingMinutes = allWaitingTimeForReceptionInHours % quantityOfMinutesPerHour;
+            allWaitingTimeForReceptionInMinutes = countOfPeopleInQueue * fixedReceptionTimeInMinutes;
+            waitingHours = allWaitingTimeForReceptionInMinutes / quantityOfMinutesPerHour;
+            waitingMinutes = allWaitingTimeForReceptionInMinutes % quantityOfMinutesPerHour;
 
             Console.WriteLine("Вам нужно отстоять в очереди " + waitingHours + " часа и " + waitingMinutes + " минут.");
 
