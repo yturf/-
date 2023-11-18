@@ -4,24 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Освоение_циклов1
+namespace Освоение_циклов
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            String announcementOfListOfParticipants;
-            int countOfParticipants;
+            String proverb;
+            int numberOfRepetitionsOfProverb;
 
-            Console.Write("Введите количество участников в списке: ");
-            countOfParticipants = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Введите имя участника: ");
+            Console.Write("Введите количество повторений пословицы для запоминания: ");
+            numberOfRepetitionsOfProverb = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Введите текст пословицы: ");
+            proverb = Console.ReadLine();
 
-            while (countOfParticipants-- > 0)
+            for (int i = 1; i <= numberOfRepetitionsOfProverb; i++ )
             {
-                announcementOfListOfParticipants = Console.ReadLine();
+                Console.WriteLine(proverb);
             }
+
             Console.ReadKey();
         }
-    }   
+    }
 }
