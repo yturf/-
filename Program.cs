@@ -4,23 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Освоение_циклов
+namespace Контроль_выхода
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            String proverb;
-            int numberOfRepetitionsOfProverb;
+            String announcementOfListOfParticipants;
+            String wordKeyToExit;
+            wordKeyToExit = "Exit";
 
-            Console.Write("Введите количество повторений пословицы для запоминания: ");
-            numberOfRepetitionsOfProverb = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Введите текст пословицы: ");
-            proverb = Console.ReadLine();
+            Console.WriteLine("Введите имя участника: ");
 
-            for (int i = 1; i <= numberOfRepetitionsOfProverb; i++ )
+            while (true)            
             {
-                Console.WriteLine(proverb);
+                announcementOfListOfParticipants = Console.ReadLine();
+                if (announcementOfListOfParticipants == wordKeyToExit)
+                {
+                    break;
+                }                   
             }
 
             Console.ReadKey();
