@@ -4,27 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Контроль_выхода
+namespace Последовательность
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            String announcementOfListOfParticipants;
-            String wordKeyToExit = "Exit";
-            bool isWordKeyToExit;
-            isWordKeyToExit = true;
+            int value = 5;
+            int magnificationSize = 7;
+            int maxValue = 97;
 
-            Console.WriteLine("Введите имя участника: ");
-
-            while (isWordKeyToExit)
+            for (value = 5; value < maxValue; value += magnificationSize)
             {
-                announcementOfListOfParticipants = Console.ReadLine();
-
-                if (announcementOfListOfParticipants == wordKeyToExit)
-                {
-                    isWordKeyToExit = false;
-                }
+                Console.WriteLine(value);
             }
 
             Console.ReadKey();
