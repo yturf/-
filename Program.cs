@@ -11,18 +11,20 @@ namespace Контроль_выхода
         static void Main(string[] args)
         {
             String announcementOfListOfParticipants;
-            String wordKeyToExit;
-            wordKeyToExit = "Exit";
+            String wordKeyToExit = "Exit";
+            bool isWordKeyToExit;
+            isWordKeyToExit = true;
 
             Console.WriteLine("Введите имя участника: ");
 
-            while (true)            
+            while (isWordKeyToExit)
             {
                 announcementOfListOfParticipants = Console.ReadLine();
+
                 if (announcementOfListOfParticipants == wordKeyToExit)
                 {
-                    break;
-                }                   
+                    isWordKeyToExit = false;
+                }
             }
 
             Console.ReadKey();
