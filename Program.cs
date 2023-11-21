@@ -10,13 +10,13 @@ namespace Последовательность
     {
         static void Main(string[] args)
         {
-            int value = 5;
+            int valueInitial = 5;
             int magnificationSize = 7;
             int maxValue = 97;
 
-            for (value = 5; value < maxValue; value += magnificationSize)
+            for (int i = valueInitial; i < maxValue; i += magnificationSize)
             {
-                Console.WriteLine(value);
+                Console.WriteLine(i);
             }
 
             Console.ReadKey();
