@@ -4,21 +4,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Последовательность
+namespace Сумма_чисел
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            int valueInitial = 5;
-            int magnificationSize = 7;
-            int maxValue = 97;
+            Random random = new Random();
 
-            for (int i = valueInitial; i < maxValue; i += magnificationSize)
+            int number = random.Next(0, 101);
+            int firstMultipleNumber = 3;
+            int secondMultipleNumber = 5;
+            int sumOfAllPositiveNumbers = 0;
+
+            Console.WriteLine("Случайное число: " + number);
+
+            for (int i = 0; i <= number; i++)
             {
-                Console.WriteLine(i);
+                if (i % firstMultipleNumber == 0 || i % secondMultipleNumber == 0)
+                {
+                    Console.WriteLine(i);
+                    sumOfAllPositiveNumbers += i;
+                }
             }
 
+            Console.WriteLine($"Сумма всех положительных чисел числа {number} (включая число),");
+            Console.WriteLine($"которые кратны {firstMultipleNumber} и {secondMultipleNumber}, равна {sumOfAllPositiveNumbers}.");
             Console.ReadKey();
         }
     }
