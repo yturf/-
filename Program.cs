@@ -12,7 +12,9 @@ namespace Сумма_чисел
         {
             Random random = new Random();
 
-            int number = random.Next(0, 101);
+            int minNumber = 0;
+            int maxNumber = 101;
+            int number = random.Next(minNumber, maxNumber);
             int firstMultipleNumber = 3;
             int secondMultipleNumber = 5;
             int sumOfAllPositiveNumbers = 0;
