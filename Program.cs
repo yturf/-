@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,9 +24,10 @@ namespace Конвертер_валют
             double rateEurToRub = 97.06;
             double rateEurToUsd = 1.09;
 
-            string typeOfOperation = "";
-            string wordToExit = "";
+            string userInput = "";
+            string wordToExit = "Exit";
             double amountOfCurrencySale = 0;
+            bool obieg = true;
 
             string commandToExchangeRubForUsd = "1";
             string commandToExchangeRubForEur = "2";
@@ -45,19 +47,22 @@ namespace Конвертер_валют
             Console.Write("Введите количество евро на вашем счёте: ");
             balanceInEur = Convert.ToDouble(Console.ReadLine());
 
-            while (wordToExit != "Exit")
+            while (obieg != Convert.ToBoolean(wordToExit))
             {
                 Console.Write("Какую операцию вы хотите провести?\n" +
-                   "1 - обменять рубли на доллары, 2 - обменять рубли на евро.\n" +
-                   "3 - обменять доллары на рубли, 4 - обменять доллары на евро.\n" +
-                   "5 - обменять евро на рубли, 6 - обменять евро на доллары.\n" +
+                   commandToExchangeRubForUsd + " - обменять рубли на доллары, " + 
+                   commandToExchangeRubForEur + " - обменять рубли на евро.\n" +
+                   commandToExchangeUsdForRub + " - обменять доллары на рубли, " +
+                   commandToExchangeUsdForEur + " - обменять доллары на евро.\n" +
+                   commandToExchangeEurForRub + " - обменять евро на рубли, " +
+                   commandToExchangeEurForUsd + " - обменять евро на доллары.\n" +
                    "");
-                typeOfOperation = Console.ReadLine();
+                userInput = Console.ReadLine();
 
                 Console.Write("На какую сумму вы хотите продать?\n");
                 amountOfCurrencySale = Convert.ToDouble(Console.ReadLine());
 
-                if (typeOfOperation == commandToExchangeRubForUsd)
+                if (userInput == commandToExchangeRubForUsd)
                 {
                     if (balanceInRub > amountOfCurrencySale)
                     {
@@ -72,7 +77,7 @@ namespace Конвертер_валют
                     }
                 }
 
-                else if (typeOfOperation == commandToExchangeRubForEur)
+                else if (userInput == commandToExchangeRubForEur)
                 {
                     if (balanceInRub > amountOfCurrencySale)
                     {
@@ -87,7 +92,7 @@ namespace Конвертер_валют
                     }
                 }
 
-                else if (typeOfOperation == commandToExchangeUsdForRub)
+                else if (userInput == commandToExchangeUsdForRub)
                 {
                     if (balanceInUsd > amountOfCurrencySale)
                     {
@@ -102,7 +107,7 @@ namespace Конвертер_валют
                     }
                 }
 
-                else if (typeOfOperation == commandToExchangeUsdForEur)
+                else if (userInput == commandToExchangeUsdForEur)
                 {
                     if (balanceInUsd > amountOfCurrencySale)
                     {
@@ -117,7 +122,7 @@ namespace Конвертер_валют
                     }
                 }
 
-                else if (typeOfOperation == commandToExchangeEurForRub)
+                else if (userInput == commandToExchangeEurForRub)
                 {
                     if (balanceInEur > amountOfCurrencySale)
                     {
@@ -132,7 +137,7 @@ namespace Конвертер_валют
                     }
                 }
 
-                else if (typeOfOperation == commandToExchangeEurForUsd)
+                else if (userInput == commandToExchangeEurForUsd)
                 {
                     if (balanceInEur > amountOfCurrencySale)
                     {
@@ -145,6 +150,10 @@ namespace Конвертер_валют
                     {
                         Console.WriteLine("У вас недостаточно средств");
                     }
+                }  
+                else if (userInput == wordToExit)
+                {
+                    return;
                 }
                 Console.WriteLine("Для продолжения нажмите Enter,\n" +
                       "Для выхода из программы введите Exit и нажмите Enter");
