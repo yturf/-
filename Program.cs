@@ -25,7 +25,6 @@ namespace Конвертер_валют
             double rateEurToUsd = 1.09;
 
             string userInput = "";
-            string wordToExit = "Exit";
             double amountOfCurrencySale = 0;
             bool obieg = true;
 
@@ -35,6 +34,7 @@ namespace Конвертер_валют
             string commandToExchangeUsdForEur = "4";
             string commandToExchangeEurForRub = "5";
             string commandToExchangeEurForUsd = "6";
+            string commandExit = "Exit";
 
             Console.WriteLine("Добро пожаловать в наш конвертор валют!");
 
@@ -47,7 +47,7 @@ namespace Конвертер_валют
             Console.Write("Введите количество евро на вашем счёте: ");
             balanceInEur = Convert.ToDouble(Console.ReadLine());
 
-            while (obieg != Convert.ToBoolean(wordToExit))
+            while (obieg)
             {
                 Console.Write("Какую операцию вы хотите провести?\n" +
                    commandToExchangeRubForUsd + " - обменять рубли на доллары, " + 
@@ -151,14 +151,12 @@ namespace Конвертер_валют
                         Console.WriteLine("У вас недостаточно средств");
                     }
                 }  
-                else if (userInput == wordToExit)
+                else if (userInput == commandExit)
                 {
-                    return;
+                    obieg = false;
                 }
                 Console.WriteLine("Для продолжения нажмите Enter,\n" +
                       "Для выхода из программы введите Exit и нажмите Enter");
-
-                wordToExit = Console.ReadLine();
             }
         }
     }
