@@ -25,7 +25,7 @@ namespace Конвертер_валют
             double rateEurToUsd = 1.09;
 
             double amountOfCurrencySale = 0;
-            bool obieg = true;
+            bool isObieg = true;
             string userInput = "";
             string commandExit = "Exit";
 
@@ -49,7 +49,7 @@ namespace Конвертер_валют
 
             Console.WriteLine("Для выхода из программы введите: Exit и нажмите Enter");
 
-            while (obieg)
+            while (isObieg)
             {
                 Console.Write("Какую операцию вы хотите провести?\n" +
                    commandToExchangeRubForUsd + " - обменять рубли на доллары, " + 
@@ -77,7 +77,6 @@ namespace Конвертер_валют
                         Console.WriteLine("У вас недостаточно средств");
                     }
                 }
-
                 else if (userInput == commandToExchangeRubForEur)
                 {
                     if (balanceInRub > amountOfCurrencySale)
@@ -94,7 +93,6 @@ namespace Конвертер_валют
                         Console.WriteLine("У вас недостаточно средств");
                     }
                 }
-
                 else if (userInput == commandToExchangeUsdForRub)
                 {
                     if (balanceInUsd > amountOfCurrencySale)
@@ -111,7 +109,6 @@ namespace Конвертер_валют
                         Console.WriteLine("У вас недостаточно средств");
                     }
                 }
-
                 else if (userInput == commandToExchangeUsdForEur)
                 {
                     if (balanceInUsd > amountOfCurrencySale)
@@ -128,7 +125,6 @@ namespace Конвертер_валют
                         Console.WriteLine("У вас недостаточно средств");
                     }
                 }
-
                 else if (userInput == commandToExchangeEurForRub)
                 {
                     if (balanceInEur > amountOfCurrencySale)
@@ -145,7 +141,6 @@ namespace Конвертер_валют
                         Console.WriteLine("У вас недостаточно средств");
                     }
                 }
-
                 else if (userInput == commandToExchangeEurForUsd)
                 {
                     if (balanceInEur > amountOfCurrencySale)
@@ -164,8 +159,9 @@ namespace Конвертер_валют
                 }  
                 else if (userInput == commandExit)
                 {
-                    obieg = false;
+                    isObieg = false;
                 }
+
                 Console.WriteLine("Для продолжения нажмите Enter,\n" +
                       "Для выхода из программы введите Exit и нажмите Enter");
             }
