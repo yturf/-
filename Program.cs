@@ -47,7 +47,7 @@ namespace Конвертер_валют
             Console.Write("Введите количество евро на вашем счёте: ");
             balanceInEur = Convert.ToDouble(Console.ReadLine());
 
-            Console.WriteLine("Для выхода из программы введите: Exit и нажмите Enter");
+            Console.WriteLine("Для выхода из программы введите: " + commandExit + " и нажмите Enter");
 
             while (isObieg)
             {
@@ -63,10 +63,11 @@ namespace Конвертер_валют
 
                 if (userInput == commandToExchangeRubForUsd)
                 {
-                    if (balanceInRub > amountOfCurrencySale)
-                    {
                         Console.Write("На какую сумму вы хотите продать?\n");
                         amountOfCurrencySale = Convert.ToDouble(Console.ReadLine());
+
+                    if (balanceInRub > amountOfCurrencySale)
+                    {
                         balanceInUsd = balanceInRub + amountOfCurrencySale * rateRubToUsd;
                         balanceInRub -= amountOfCurrencySale;
                         Console.Write($"Обмен валюты произведен. На вашем счету:\n{balanceInRub} рублей, " +
@@ -79,10 +80,11 @@ namespace Конвертер_валют
                 }
                 else if (userInput == commandToExchangeRubForEur)
                 {
-                    if (balanceInRub > amountOfCurrencySale)
-                    {
                         Console.Write("На какую сумму вы хотите продать?\n");
                         amountOfCurrencySale = Convert.ToDouble(Console.ReadLine());
+
+                    if (balanceInRub > amountOfCurrencySale)
+                    {
                         balanceInEur = balanceInRub + amountOfCurrencySale * rateRubToEur;
                         balanceInRub -= amountOfCurrencySale;
                         Console.Write($"Обмен валюты произведен. На вашем счету:\n{balanceInRub} рублей, " +
@@ -95,10 +97,11 @@ namespace Конвертер_валют
                 }
                 else if (userInput == commandToExchangeUsdForRub)
                 {
-                    if (balanceInUsd > amountOfCurrencySale)
-                    {
                         Console.Write("На какую сумму вы хотите продать?\n");
                         amountOfCurrencySale = Convert.ToDouble(Console.ReadLine());
+
+                    if (balanceInUsd > amountOfCurrencySale)
+                    {
                         balanceInRub = balanceInUsd + amountOfCurrencySale * rateUsdToRub;
                         balanceInUsd -= amountOfCurrencySale;
                         Console.Write($"Обмен валюты произведен. На вашем счету:\n{balanceInRub} рублей, " +
@@ -111,10 +114,11 @@ namespace Конвертер_валют
                 }
                 else if (userInput == commandToExchangeUsdForEur)
                 {
-                    if (balanceInUsd > amountOfCurrencySale)
-                    {
                         Console.Write("На какую сумму вы хотите продать?\n");
                         amountOfCurrencySale = Convert.ToDouble(Console.ReadLine());
+
+                    if (balanceInUsd > amountOfCurrencySale)
+                    {
                         balanceInEur = balanceInUsd + amountOfCurrencySale * rateUsdToEur;
                         balanceInUsd -= amountOfCurrencySale;
                         Console.Write($"Обмен валюты произведен. На вашем счету:\n{balanceInRub} рублей, " +
@@ -127,10 +131,11 @@ namespace Конвертер_валют
                 }
                 else if (userInput == commandToExchangeEurForRub)
                 {
-                    if (balanceInEur > amountOfCurrencySale)
-                    {
                         Console.Write("На какую сумму вы хотите продать?\n");
                         amountOfCurrencySale = Convert.ToDouble(Console.ReadLine());
+
+                    if (balanceInEur > amountOfCurrencySale)
+                    {
                         balanceInRub = balanceInEur + amountOfCurrencySale * rateEurToRub;
                         balanceInEur -= amountOfCurrencySale;
                         Console.Write($"Обмен валюты произведен. На вашем счету:\n{balanceInRub} рублей, " +
@@ -143,10 +148,11 @@ namespace Конвертер_валют
                 }
                 else if (userInput == commandToExchangeEurForUsd)
                 {
-                    if (balanceInEur > amountOfCurrencySale)
-                    {
                         Console.Write("На какую сумму вы хотите продать?\n");
                         amountOfCurrencySale = Convert.ToDouble(Console.ReadLine());
+
+                    if (balanceInEur > amountOfCurrencySale)
+                    {
                         balanceInUsd = balanceInEur + amountOfCurrencySale * rateEurToUsd;
                         balanceInEur -= amountOfCurrencySale;
                         Console.Write($"Обмен валюты произведен. На вашем счету:\n{balanceInRub} рублей, " +
@@ -163,7 +169,7 @@ namespace Конвертер_валют
                 }
 
                 Console.WriteLine("Для продолжения нажмите Enter,\n" +
-                      "Для выхода из программы введите Exit и нажмите Enter");
+                      "Для выхода из программы введите " + commandExit + " и нажмите Enter");
             }
         }
     }
