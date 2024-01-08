@@ -66,9 +66,9 @@ namespace Конвертер_валют
                         Console.Write("На какую сумму вы хотите продать?\n");
                         amountOfCurrencySale = Convert.ToDouble(Console.ReadLine());
 
-                    if (balanceInRub > amountOfCurrencySale)
+                    if (balanceInRub >= amountOfCurrencySale)
                     {
-                        balanceInUsd = balanceInRub + amountOfCurrencySale * rateRubToUsd;
+                        balanceInUsd += amountOfCurrencySale * rateRubToUsd;
                         balanceInRub -= amountOfCurrencySale;
                         Console.Write($"Обмен валюты произведен. На вашем счету:\n{balanceInRub} рублей, " +
                         $"{balanceInUsd} долларов, и {balanceInEur} евро.\n");
@@ -83,9 +83,9 @@ namespace Конвертер_валют
                         Console.Write("На какую сумму вы хотите продать?\n");
                         amountOfCurrencySale = Convert.ToDouble(Console.ReadLine());
 
-                    if (balanceInRub > amountOfCurrencySale)
+                    if (balanceInRub >= amountOfCurrencySale)
                     {
-                        balanceInEur = balanceInRub + amountOfCurrencySale * rateRubToEur;
+                        balanceInEur += amountOfCurrencySale * rateRubToEur;
                         balanceInRub -= amountOfCurrencySale;
                         Console.Write($"Обмен валюты произведен. На вашем счету:\n{balanceInRub} рублей, " +
                         $"{balanceInUsd} долларов, и {balanceInEur} евро.\n");
@@ -100,9 +100,9 @@ namespace Конвертер_валют
                         Console.Write("На какую сумму вы хотите продать?\n");
                         amountOfCurrencySale = Convert.ToDouble(Console.ReadLine());
 
-                    if (balanceInUsd > amountOfCurrencySale)
+                    if (balanceInUsd >= amountOfCurrencySale)
                     {
-                        balanceInRub = balanceInUsd + amountOfCurrencySale * rateUsdToRub;
+                        balanceInRub += amountOfCurrencySale * rateUsdToRub;
                         balanceInUsd -= amountOfCurrencySale;
                         Console.Write($"Обмен валюты произведен. На вашем счету:\n{balanceInRub} рублей, " +
                         $"{balanceInUsd} долларов, и {balanceInEur} евро.\n");
@@ -117,9 +117,9 @@ namespace Конвертер_валют
                         Console.Write("На какую сумму вы хотите продать?\n");
                         amountOfCurrencySale = Convert.ToDouble(Console.ReadLine());
 
-                    if (balanceInUsd > amountOfCurrencySale)
+                    if (balanceInUsd >= amountOfCurrencySale)
                     {
-                        balanceInEur = balanceInUsd + amountOfCurrencySale * rateUsdToEur;
+                        balanceInEur += amountOfCurrencySale * rateUsdToEur;
                         balanceInUsd -= amountOfCurrencySale;
                         Console.Write($"Обмен валюты произведен. На вашем счету:\n{balanceInRub} рублей, " +
                         $"{balanceInUsd} долларов, и {balanceInEur} евро.\n");
@@ -134,9 +134,9 @@ namespace Конвертер_валют
                         Console.Write("На какую сумму вы хотите продать?\n");
                         amountOfCurrencySale = Convert.ToDouble(Console.ReadLine());
 
-                    if (balanceInEur > amountOfCurrencySale)
+                    if (balanceInEur >= amountOfCurrencySale)
                     {
-                        balanceInRub = balanceInEur + amountOfCurrencySale * rateEurToRub;
+                        balanceInRub += amountOfCurrencySale * rateEurToRub;
                         balanceInEur -= amountOfCurrencySale;
                         Console.Write($"Обмен валюты произведен. На вашем счету:\n{balanceInRub} рублей, " +
                         $"{balanceInUsd} долларов, и {balanceInEur} евро.\n");
@@ -151,9 +151,9 @@ namespace Конвертер_валют
                         Console.Write("На какую сумму вы хотите продать?\n");
                         amountOfCurrencySale = Convert.ToDouble(Console.ReadLine());
 
-                    if (balanceInEur > amountOfCurrencySale)
+                    if (balanceInEur >= amountOfCurrencySale)
                     {
-                        balanceInUsd = balanceInEur + amountOfCurrencySale * rateEurToUsd;
+                        balanceInUsd += amountOfCurrencySale * rateEurToUsd;
                         balanceInEur -= amountOfCurrencySale;
                         Console.Write($"Обмен валюты произведен. На вашем счету:\n{balanceInRub} рублей, " +
                         $"{balanceInUsd} долларов, и {balanceInEur} евро.\n");
