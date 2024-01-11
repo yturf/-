@@ -19,20 +19,23 @@ namespace Консольное_меню
             string colorGreen = "2";
             string colorYellow = "3";
 
-            bool isObieg = true;
+            bool isCycle = true;
 
             int triesCount = 3;
+            int restOfCount;
 
             Console.Write("Установите пароль для вашего приложения: ");
             setPassword = Console.ReadLine();
 
             Console.Clear();
 
-            Console.Write("Будьте внимательны! У вас 3 попытки!\nВведите пароль для входа в приложение: ");
+            Console.Write("Будьте внимательны! У вас " + triesCount + " попытки!\nВведите пароль для входа в приложение: ");
 
             for (int i = 0; i < triesCount; i++)
             {
                 userInput = Console.ReadLine();
+
+                restOfCount = (triesCount - (i + 1));
 
                 if (userInput == setPassword) 
                 {
@@ -42,7 +45,7 @@ namespace Консольное_меню
                 else  
                 {
                     Console.WriteLine("Пароль неверный! Доступ закрыт! ");
-                    Console.WriteLine("У вас осталось попыток: " + (triesCount - (i + 1)));
+                    Console.WriteLine("У вас осталось попыток: " + restOfCount);
                 }
             }
 
@@ -54,7 +57,7 @@ namespace Консольное_меню
 
                     Console.Clear();
 
-                while (isObieg)
+                while (isCycle)
                 {
                     Console.WriteLine("Задайте цвет для своей консоли:\n" +
                         colorWhite +  " - белый\n" +
@@ -67,21 +70,21 @@ namespace Консольное_меню
 
                     if (userInput == commandExit || setNameApplication == commandExit)
                     {
-                        isObieg = false;
+                        isCycle = false;
 
                     }
-                     if (userInput == colorWhite)
-                     {
-                         Console.BackgroundColor = ConsoleColor.White;
-                     }
-                     else if (userInput == colorGreen)
-                     {
-                         Console.BackgroundColor = ConsoleColor.Green;
-                     }
-                     else if (userInput == colorYellow)
-                     {
-                         Console.BackgroundColor = ConsoleColor.Yellow;
-                     }
+                    if (userInput == colorWhite)
+                    {
+                        Console.BackgroundColor = ConsoleColor.White;
+                    }
+                    else if (userInput == colorGreen)
+                    {
+                        Console.BackgroundColor = ConsoleColor.Green;
+                    }
+                    else if (userInput == colorYellow)
+                    {
+                        Console.BackgroundColor = ConsoleColor.Yellow;
+                    }
                 }
             }                             
         }
