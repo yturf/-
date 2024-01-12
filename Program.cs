@@ -4,89 +4,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Консольное_меню
+namespace Вывод_имени
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            string setPassword = "";
-            string commandExit = "Esc";
-            string setNameApplication = "";
-            string userInput = "";
+            string name = "";
+            string lineSymbols = "";
 
-            string colorWhite = "1";
-            string colorGreen = "2";
-            string colorYellow = "3";
+            char symbol;
 
-            bool isCycle = true;
+            Console.Write("Введите имя: ");
+            name = Console.ReadLine();
 
-            int triesCount = 3;
-            int restOfCount;
+            Console.Write("Введите один символ: " );
+            symbol = Convert.ToChar(Console.ReadLine());
 
-            Console.Write("Установите пароль для вашего приложения: ");
-            setPassword = Console.ReadLine();
+            name = symbol + name + symbol;
 
             Console.Clear();
 
-            Console.Write("Будьте внимательны! У вас " + triesCount + " попытки!\nВведите пароль для входа в приложение: ");
-
-            for (int i = 0; i < triesCount; i++)
+            for (int i = 0; i < name.Length; i++) 
             {
-                userInput = Console.ReadLine();
-
-                restOfCount = (triesCount - (i + 1));
-
-                if (userInput == setPassword) 
-                {
-                    Console.WriteLine("Пароль принят! Доступ открыт!");
-                    break;
-                }
-                else  
-                {
-                    Console.WriteLine("Пароль неверный! Доступ закрыт! ");
-                    Console.WriteLine("У вас осталось попыток: " + restOfCount);
-                }
+                lineSymbols += symbol;
             }
 
-            if (userInput == setPassword)
-            {
-                    Console.WriteLine("Для выхода из программы введите: " + commandExit);
-                    Console.WriteLine("Дайте название для приложения: ");
-                    setNameApplication = Console.ReadLine();
+            Console.WriteLine(lineSymbols);
+            Console.WriteLine(name);
+            Console.WriteLine(lineSymbols);
 
-                    Console.Clear();
-
-                while (isCycle)
-                {
-                    Console.WriteLine("Задайте цвет для своей консоли:\n" +
-                        colorWhite +  " - белый\n" +
-                        colorGreen + " - зелёный\n" +
-                        colorYellow + " - желтый");
-
-                    Console.WriteLine("Добро пожаловать в приложение - " + setNameApplication);
-
-                    userInput = Console.ReadLine();
-
-                    if (userInput == commandExit || setNameApplication == commandExit)
-                    {
-                        isCycle = false;
-
-                    }
-                    if (userInput == colorWhite)
-                    {
-                        Console.BackgroundColor = ConsoleColor.White;
-                    }
-                    else if (userInput == colorGreen)
-                    {
-                        Console.BackgroundColor = ConsoleColor.Green;
-                    }
-                    else if (userInput == colorYellow)
-                    {
-                        Console.BackgroundColor = ConsoleColor.Yellow;
-                    }
-                }
-            }                             
+            Console.ReadKey();
         }
     }
 }
