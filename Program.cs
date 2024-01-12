@@ -4,38 +4,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Вывод_имени
+namespace Программа_под_паролем
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            string name = "";
-            string lineSymbols = "";
-            string middleLine = "";
+            string password = "";
+            string userInput = "";
 
-            char symbol;
+            int threeAttempts = 3;
+            int restOfCount;
 
-            Console.Write("Введите имя: ");
-            name = Console.ReadLine();
-
-            Console.Write("Введите один символ: " );
-            symbol = Convert.ToChar(Console.Read());
-
-            middleLine = symbol + name + symbol;
+            Console.Write("Придумайте пароль: ");
+            password = Console.ReadLine();
 
             Console.Clear();
 
-            for (int i = 0; i < middleLine.Length; i++) 
+            Console.WriteLine("Введите пароль. У вас только три попытки!");
+
+            for (int i = 0; i < threeAttempts; i++)
             {
-                lineSymbols += symbol;
+                userInput = Console.ReadLine();
+                restOfCount = threeAttempts - (i + 1);
+
+                if (userInput == password)
+                {
+                    Console.WriteLine("Пароль верный!");
+                    Console.Clear();
+                    Console.WriteLine("Тайное сообщение!");
+                    Console.ReadKey();
+                    break;                   
+                }
+                else 
+                {
+                    Console.WriteLine("Пароль неверный! Доступ закрыт! ");
+                    Console.WriteLine("У вас осталась попыток: " + restOfCount);                  
+                }
             }
-
-            Console.WriteLine(lineSymbols);
-            Console.WriteLine(middleLine);
-            Console.WriteLine(lineSymbols);
-
-            Console.ReadKey();
         }
     }
 }
