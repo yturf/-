@@ -12,6 +12,7 @@ namespace Вывод_имени
         {
             string name = "";
             string lineSymbols = "";
+            string middleLine = "";
 
             char symbol;
 
@@ -19,19 +20,19 @@ namespace Вывод_имени
             name = Console.ReadLine();
 
             Console.Write("Введите один символ: " );
-            symbol = Convert.ToChar(Console.ReadLine());
+            symbol = Convert.ToChar(Console.Read());
 
-            name = symbol + name + symbol;
+            middleLine = symbol + name + symbol;
 
             Console.Clear();
 
-            for (int i = 0; i < name.Length; i++) 
+            for (int i = 0; i < middleLine.Length; i++) 
             {
                 lineSymbols += symbol;
             }
 
             Console.WriteLine(lineSymbols);
-            Console.WriteLine(name);
+            Console.WriteLine(middleLine);
             Console.WriteLine(lineSymbols);
 
             Console.ReadKey();
