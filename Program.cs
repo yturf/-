@@ -13,7 +13,7 @@ namespace Программа_под_паролем
             string password = "";
             string userInput = "";
 
-            int threeAttempts = 3;
+            int countAttempts = 3;
             int restOfCount;
 
             Console.Write("Придумайте пароль: ");
@@ -21,12 +21,12 @@ namespace Программа_под_паролем
 
             Console.Clear();
 
-            Console.WriteLine("Введите пароль. У вас только три попытки!");
+            Console.WriteLine("Введите пароль. У вас только " + countAttempts + " попытки!");
 
-            for (int i = 0; i < threeAttempts; i++)
+            for (int i = 0; i < countAttempts; i++)
             {
                 userInput = Console.ReadLine();
-                restOfCount = threeAttempts - (i + 1);
+                restOfCount = countAttempts - (i + 1);
 
                 if (userInput == password)
                 {
