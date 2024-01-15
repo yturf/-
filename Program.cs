@@ -2,37 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
-namespace Кратные_числа
+namespace Степень_двойки
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            int numberN;
-            int minValueOfNumberN = 1;
-            int maxValueOfNumberN = 28;
-            int numberOfMultiples = 0; 
-            int minValueOfMultiples = 100;
-            int maxValueOfMultiples = 1000;
+            int baseNumber = 2;
+            double randomNumber;
+            int maxNumber = 100;
+            double resultOfDegree = 1;
+            int degree = 0;
 
-            Random random = new Random();
+             Random random = new Random();
 
-            numberN = random.Next(minValueOfNumberN, maxValueOfNumberN);
-            Console.WriteLine("Рамдомное число = " + numberN);
+             randomNumber = random.Next(baseNumber, maxNumber);
+             Console.WriteLine(randomNumber);
 
-            for (int i = 0; i < maxValueOfMultiples; i += numberN) 
-            {
-                if (i >= minValueOfMultiples)
-                {
-                    numberOfMultiples++;
-                }
-            }
+             while (resultOfDegree < randomNumber) 
+             {
+                 resultOfDegree *= baseNumber;
+                 degree++;
+             }
 
-            Console.WriteLine("Количество трехзначных натуральных чисел," +
-                " которые кратны " + numberN + " = " + numberOfMultiples);
+            Console.WriteLine($"Рандомное число: {randomNumber}, " +
+                $" {baseNumber} в степени {degree} = {resultOfDegree}.");
 
             Console.ReadKey();
         }
