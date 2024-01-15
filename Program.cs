@@ -2,46 +2,39 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace Программа_под_паролем
+namespace Кратные_числа
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            string password = "";
-            string userInput = "";
+            int numberN;
+            int minValueOfNumberN = 1;
+            int maxValueOfNumberN = 28;
+            int numberOfMultiples = 0; 
+            int minValueOfMultiples = 100;
+            int maxValueOfMultiples = 1000;
 
-            int countAttempts = 3;
-            int restOfCount;
+            Random random = new Random();
 
-            Console.Write("Придумайте пароль: ");
-            password = Console.ReadLine();
+            numberN = random.Next(minValueOfNumberN, maxValueOfNumberN);
+            Console.WriteLine("Рамдомное число = " + numberN);
 
-            Console.Clear();
-
-            Console.WriteLine("Введите пароль. У вас только " + countAttempts + " попытки!");
-
-            for (int i = 0; i < countAttempts; i++)
+            for (int i = 0; i < maxValueOfMultiples; i += numberN) 
             {
-                userInput = Console.ReadLine();
-                restOfCount = countAttempts - (i + 1);
-
-                if (userInput == password)
+                if (i >= minValueOfMultiples)
                 {
-                    Console.WriteLine("Пароль верный!");
-                    Console.Clear();
-                    Console.WriteLine("Тайное сообщение!");
-                    Console.ReadKey();
-                    break;                   
-                }
-                else 
-                {
-                    Console.WriteLine("Пароль неверный! Доступ закрыт! ");
-                    Console.WriteLine("У вас осталась попыток: " + restOfCount);                  
+                    numberOfMultiples++;
                 }
             }
+
+            Console.WriteLine("Количество трехзначных натуральных чисел," +
+                " которые кратны " + numberN + " = " + numberOfMultiples);
+
+            Console.ReadKey();
         }
     }
 }
