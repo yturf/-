@@ -21,7 +21,7 @@ namespace Степень_двойки
              randomNumber = random.Next(baseNumber, maxNumber);
              Console.WriteLine(randomNumber);
 
-             while (resultOfDegree < randomNumber) 
+             while (resultOfDegree <= randomNumber) 
              {
                  resultOfDegree *= baseNumber;
                  degree++;
