@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveCube : MonoBehaviour
+public class CubeMove : MonoBehaviour
 {
     [SerializeField] private float _rotationSpeed;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         transform.RotateAround(transform.position, transform.up, _rotationSpeed * Time.deltaTime);
     }
