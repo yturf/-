@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveSphere : MonoBehaviour
+public class SphereMove : MonoBehaviour
 {
     [SerializeField] private Vector3 _movementDirection;
 
@@ -10,6 +10,4 @@ public class MoveSphere : MonoBehaviour
     {
         transform.Translate(_movementDirection * Time.deltaTime, Space.World);
     }
-
-
 }
