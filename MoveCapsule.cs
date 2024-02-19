@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CapsuleMove : MonoBehaviour
+public class CapsuleScaler : MonoBehaviour
 {
     [SerializeField] private float _scaleSpeed;
   
