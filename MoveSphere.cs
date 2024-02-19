@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SphereMove : MonoBehaviour
+public class SphereMover : MonoBehaviour
 {
     [SerializeField] private Vector3 _movementDirection;
 
