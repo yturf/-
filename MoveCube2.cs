@@ -8,7 +8,7 @@ public class CubeMover : MonoBehaviour
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private Vector3 _movementDirection;
 
-    Vector3 newScale = new Vector3(0.1f, 0.1f, 0.1f);
+    Vector3 newScale = Vector3.one;
 
     private void Update()
     {
