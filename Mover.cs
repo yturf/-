@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CubeMover : MonoBehaviour
+public class Mover : MonoBehaviour
 {
     [SerializeField] private float _scaleSpeed;
     [SerializeField] private float _rotationSpeed;
