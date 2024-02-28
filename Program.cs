@@ -66,7 +66,6 @@ namespace Бой_с_боссом
                         healthBoss -= commonAttackPlayer;
                         haveFireballIsUsed = false;
                         break;
-
                     case CommandFireballPlayer:
 
                         if (mannaCostFromFireball <= mannaPlayer)
@@ -81,10 +80,9 @@ namespace Бой_с_боссом
                             healthPlayer -= commonAttackBoss;
                         }
                         break;
-
                     case CommandExplosionAttackPlayer:
 
-                        if  (haveFireballIsUsed == true && haveExplosionIsUsed)
+                        if  (haveFireballIsUsed == true && haveExplosionIsUsed == false)
                         {
                             healthBoss -= explosionAttackPlayer;
                             healthPlayer -= commonAttackBoss;
@@ -101,7 +99,6 @@ namespace Бой_с_боссом
                             healthPlayer -= commonAttackBoss;
                         }
                         break;
-
                     case CommandBlessingPlayer: 
 
                         if (blessingLimit > 0)
@@ -132,7 +129,6 @@ namespace Бой_с_боссом
                             healthPlayer -= commonAttackBoss;
                         }
                         break;
-
                     default:
                         healthPlayer -= commonAttackBoss;
                         break;
