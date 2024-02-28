@@ -25,10 +25,6 @@ namespace Бой_с_боссом
 
             string userInput = "";
             string playerName = "";
-            string userInputCommonAttackPlayer = "1";
-            string userInputFireballPlayer = "2";
-            string userInputExplosionAttackPlayer = "3";
-            string userInputBlessingPlayer = "4";
 
             bool haveFireballIsUsed = false;
             bool haveExplosionIsUsed = false;
@@ -44,10 +40,10 @@ namespace Бой_с_боссом
             Console.Write("Введите имя героя:");
             playerName = Console.ReadLine();
 
-            Console.WriteLine("\nДля обычной атаки введите: " + userInputCommonAttackPlayer + 
-                "\nДля огненного шара: " + userInputFireballPlayer +
-                "\nДля применения взрыва: " + userInputExplosionAttackPlayer +
-                "\nДля лечения: " + userInputBlessingPlayer
+            Console.WriteLine("\nДля обычной атаки введите: " + CommandCommonAttackPlayer + 
+                "\nДля огненного шара: " + CommandFireballPlayer +
+                "\nДля применения взрыва: " + CommandExplosionAttackPlayer +
+                "\nДля лечения: " + CommandBlessingPlayer
                 );
 
             Console.WriteLine("\nБой начинается!");
@@ -72,6 +68,7 @@ namespace Бой_с_боссом
                         break;
 
                     case CommandFireballPlayer:
+
                         if (mannaCostFromFireball <= mannaPlayer)
                         {
                             healthBoss -= fireballPlayer;
@@ -86,6 +83,7 @@ namespace Бой_с_боссом
                         break;
 
                     case CommandExplosionAttackPlayer:
+
                         if  (haveFireballIsUsed == true && haveExplosionIsUsed)
                         {
                             healthBoss -= explosionAttackPlayer;
@@ -93,7 +91,7 @@ namespace Бой_с_боссом
                             haveFireballIsUsed = false;
                             haveExplosionIsUsed = true;
                         }
-                        if (haveFireballIsUsed && haveExplosionIsUsed  == true)
+                        if (haveFireballIsUsed)
                         {
                              Console.WriteLine("Для повторного взрыва, необходимо использовать огненный шар!");
                              healthPlayer -= commonAttackBoss;
@@ -105,20 +103,24 @@ namespace Бой_с_боссом
                         break;
 
                     case CommandBlessingPlayer: 
+
                         if (blessingLimit > 0)
                         {
                             healthPlayer += blessingHealthRegeneration;
+
                             if (healthPlayer > maxHealthPlayer)
                             {
                                 healthPlayer = maxHealthPlayer;
                             }
                             mannaPlayer += blessingMannaRegeneration;
+
                             if (mannaPlayer > maxMannaPlayer)
                             {
                                 mannaPlayer = maxMannaPlayer;
                             }
                             healthPlayer -= commonAttackBoss;
                             blessingLimit--;
+
                             if (blessingLimit <= 0)
                             {
                                 Console.WriteLine("Больше нельзя лечиться!");
