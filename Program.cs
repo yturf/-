@@ -54,7 +54,6 @@ namespace Бой_с_боссом
 
             while (healthPlayer > 0 && healthBoss > 0) 
             {
-
                 Console.WriteLine($"\nЗдоровье игрока  {playerName}: {healthPlayer}/{maxHealthPlayer}\n" +
                     $"Манна игрока {playerName}: {mannaPlayer}/{maxMannaPlayer}");
                 Console.WriteLine($"\nЗдоровье босса: {healthBoss}/{maxHealthBoss}");
@@ -65,8 +64,7 @@ namespace Бой_с_боссом
                 Console.Clear();
 
                 switch (userInput)
-                {   
-                    
+                {                       
                     case CommandCommonAttackPlayer:
                         healthPlayer -= commonAttackBoss;
                         healthBoss -= commonAttackPlayer;
@@ -88,14 +86,14 @@ namespace Бой_с_боссом
                         break;
 
                     case CommandExplosionAttackPlayer:
-                        if  (haveFireballIsUsed == true && haveExplosionIsUsed == false)
+                        if  (haveFireballIsUsed == true && haveExplosionIsUsed)
                         {
                             healthBoss -= explosionAttackPlayer;
                             healthPlayer -= commonAttackBoss;
                             haveFireballIsUsed = false;
                             haveExplosionIsUsed = true;
                         }
-                        if (haveFireballIsUsed == false && haveExplosionIsUsed  == true)
+                        if (haveFireballIsUsed && haveExplosionIsUsed  == true)
                         {
                              Console.WriteLine("Для повторного взрыва, необходимо использовать огненный шар!");
                              healthPlayer -= commonAttackBoss;
@@ -150,6 +148,7 @@ namespace Бой_с_боссом
                 {
                     Console.WriteLine("Вы победили!");
                 }
+
             Console.ReadKey();
         }
     }
