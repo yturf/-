@@ -1,47 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Работа_с_конкретными_строками_столбцами
+namespace Наибольший_элемент
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            int sumOfLines = 0;
-            int productOfColumns = 1;
+            Random random = new Random();
 
-            int[,] array = new int[3, 4] {
-                    { 2, 5, 7, 2 },
-                    { 23, 43, 3, 4 },
-                    { 53, 63, 6, 61 },
-                };
+            int[,] A = new int[10, 10];
+            int[,] newA = new int[10, 10];
+            A = newA;
 
-            for (int i = 0; i < array.GetLength(0); i++)
+            int maxValue = A[0, 0];
+
+            Console.WriteLine("Исходная матрица");
+            for (int i = 0; i < A.GetLength(0); i++)
             {
-                for (int j = 0; j < array.GetLength(1); j++)
+                for (int j = 0; j < A.GetLength(1); j++)
                 {
-                    Console.Write(array[i, j] + " ");
+                    A[i, j] = random.Next(0, 101);
+                    Console.Write(A[i, j] + " ");
+
+                    if (A[i, j] > maxValue)
+                    {
+                        maxValue = A[i, j];
+                    }
                 }
                 Console.WriteLine();
             }
 
-            for (int i = 0; i <= array.GetLength(0); i++)
+            Console.WriteLine("\nНаибольший элемент массива: " + maxValue + "\n");
+
+            Console.WriteLine("Полученная матрица");
+
+            for (int i = 0; i < newA.GetLength(0); i++)
             {
-                sumOfLines += array[1, i];
+                for (int j = 0; j < newA.GetLength(1); j++)
+                {
+                    if (newA[i, j] == maxValue)
+                    {
+                        newA[i, j] = 0;
+                    }
+                    Console.Write(newA[i, j] + " ");
+                }
+                Console.WriteLine();
             }
-
-            for (int j = 0; j < array.GetLength(0); j++)
-            {
-                productOfColumns *= array[j, 0];
-            }
-
-            Console.WriteLine("Сумма втрой строки равна " + sumOfLines);
-            Console.WriteLine("Произведение первого столбца равна " + productOfColumns);
-
             Console.ReadKey();
         }
     }
