@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Наибольший_элемент
+namespace Локальные_максимумы
 {
     internal class Program
     {
@@ -12,44 +8,40 @@ namespace Наибольший_элемент
         {
             Random random = new Random();
 
-            int[,] A = new int[10, 10];
-            int[,] newA = new int[10, 10];
-            A = newA;
+            int sizeMyArray = 30;
+            int[] myArray = new int[sizeMyArray];
 
-            int maxValue = A[0, 0];
-
-            Console.WriteLine("Исходная матрица");
-            for (int i = 0; i < A.GetLength(0); i++)
+            for (int i = 0; i < myArray.Length; i++)
             {
-                for (int j = 0; j < A.GetLength(1); j++)
-                {
-                    A[i, j] = random.Next(0, 101);
-                    Console.Write(A[i, j] + " ");
+                myArray[i] = random.Next(0, 101);
 
-                    if (A[i, j] > maxValue)
-                    {
-                        maxValue = A[i, j];
-                    }
-                }
-                Console.WriteLine();
+                Console.Write(myArray[i] + " ");
             }
 
-            Console.WriteLine("\nНаибольший элемент массива: " + maxValue + "\n");
+            Console.WriteLine();
 
-            Console.WriteLine("Полученная матрица");
+            Console.Write("\nЛокальные максимумы массива: ");
 
-            for (int i = 0; i < newA.GetLength(0); i++)
+            for (int i = 1; i < sizeMyArray - 1; i++)
             {
-                for (int j = 0; j < newA.GetLength(1); j++)
+                if (myArray[i] > myArray[i - 1] && myArray[i] > myArray[i + 1])
                 {
-                    if (newA[i, j] == maxValue)
-                    {
-                        newA[i, j] = 0;
-                    }
-                    Console.Write(newA[i, j] + " ");
+                    Console.Write(myArray[i] + " ");
                 }
-                Console.WriteLine();
             }
+
+            Console.WriteLine();
+
+            if (myArray[0] > myArray[1])
+            {
+                Console.WriteLine("\nПервый локальный максимум: " + myArray[0]);
+            }
+
+            if (myArray[sizeMyArray - 1] > myArray[sizeMyArray - 2])
+            {
+                Console.WriteLine("\nПоследний локальный максимум: " + myArray[sizeMyArray - 1]);
+            }
+
             Console.ReadKey();
         }
     }
