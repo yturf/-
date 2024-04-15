@@ -1,47 +1,72 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Локальные_максимумы
+namespace Динамический_массив
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Random random = new Random();
+            int arraySize;
+            int sumArrayInitial = 0;
+            int numberForArray = 0;
 
-            int sizeMyArray = 30;
-            int[] myArray = new int[sizeMyArray];
+            string userInput = "";
+            string getSumArray = "sum";
+            string commandToExit = "exit";
 
-            for (int i = 0; i < myArray.Length; i++)
+            Console.Write("Введите размер массива: ");
+            arraySize = Convert.ToInt32(Console.ReadLine());
+
+            int[] arrayInitial = new int[arraySize];
+            int[] augmentedArray = new int[arrayInitial.Length + 1];
+
+            for (int i = 0; i < arrayInitial.Length; i++)
             {
-                myArray[i] = random.Next(0, 101);
-
-                Console.Write(myArray[i] + " ");
+                Console.WriteLine($"Введите элемент массива под индексом {i}");
+                arrayInitial[i] = Convert.ToInt32(Console.ReadLine());
             }
 
-            Console.WriteLine();
+            Console.Clear();
 
-            Console.Write("\nЛокальные максимумы массива: ");
+            Console.WriteLine("Для получения суммы всех чисел в массиве введите команду: sum.");
+            Console.WriteLine("Для выхода из программы введите команду: exit.");
+            Console.WriteLine("Вывод исходного массива:");
 
-            for (int i = 1; i < sizeMyArray - 1; i++)
+            for (int i = 0; i < arrayInitial.Length; i++)
             {
-                if (myArray[i] > myArray[i - 1] && myArray[i] > myArray[i + 1])
+                Console.Write(arrayInitial[i] + " ");
+                sumArrayInitial += arrayInitial[i];
+                augmentedArray[i] = arrayInitial[i];
+            }
+
+            while (userInput != commandToExit)
+            {
+                Console.WriteLine("\nВведите команду: ");
+
+                userInput = Console.ReadLine();
+
+
+                if (userInput == Convert.ToString(numberForArray))
                 {
-                    Console.Write(myArray[i] + " ");
+                    augmentedArray[augmentedArray.Length - 1] = numberForArray;
+
+                    for (int i = 0; i < arrayInitial.Length; i++)
+                    {
+                        arrayInitial[i] = augmentedArray[i];
+                        Console.Write(arrayInitial[i] + " ");
+                    }
+                }
+
+                if (userInput == getSumArray)
+                {
+                    Console.WriteLine("\nСумма всех введенных чисел массива: " + sumArrayInitial);
                 }
             }
-
-            Console.WriteLine();
-
-            if (myArray[0] > myArray[1])
-            {
-                Console.WriteLine("\nПервый локальный максимум: " + myArray[0]);
-            }
-
-            if (myArray[sizeMyArray - 1] > myArray[sizeMyArray - 2])
-            {
-                Console.WriteLine("\nПоследний локальный максимум: " + myArray[sizeMyArray - 1]);
-            }
-
             Console.ReadKey();
         }
     }
