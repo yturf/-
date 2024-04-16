@@ -50,21 +50,21 @@ namespace Динамический_массив
 
                 userInput = Console.ReadLine();
 
-
-                if (userInput == Convert.ToString(numberForArray))
+                if (userInput == getSumArray)
                 {
-                    augmentedArray[augmentedArray.Length - 1] = numberForArray;
+                    Console.WriteLine("\nСумма всех введенных чисел массива: " + sumArrayInitial);
+                }
+
+                else 
+                {
+                    arrayInitial = augmentedArray;
+                    augmentedArray[augmentedArray.Length - 1] = Convert.ToInt32(userInput);
 
                     for (int i = 0; i < arrayInitial.Length; i++)
                     {
                         arrayInitial[i] = augmentedArray[i];
                         Console.Write(arrayInitial[i] + " ");
                     }
-                }
-
-                if (userInput == getSumArray)
-                {
-                    Console.WriteLine("\nСумма всех введенных чисел массива: " + sumArrayInitial);
                 }
             }
             Console.ReadKey();
