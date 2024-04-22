@@ -19,6 +19,8 @@ namespace Динамический_массив
             string getSumArray = "sum";
             string commandToExit = "exit";
 
+            bool isWork = true;
+
             Console.Write("Введите размер массива: ");
             arraySize = Convert.ToInt32(Console.ReadLine());
 
@@ -37,17 +39,16 @@ namespace Динамический_массив
             Console.WriteLine("Для выхода из программы введите команду: exit.");
             Console.WriteLine("Вывод исходного массива:");
 
-            for (int i = 0; i < arrayInitial.Length; i++)
+            while (isWork)
             {
-                Console.Write(arrayInitial[i] + " ");
-                sumArrayInitial += arrayInitial[i];
-                augmentedArray[i] = arrayInitial[i];
-            }
+                for (int i = 0; i < arrayInitial.Length; i++)
+                {
+                    Console.Write(arrayInitial[i] + " ");
+                    sumArrayInitial += arrayInitial[i];
+                    augmentedArray[i] = arrayInitial[i];
+                }
 
-            while (userInput != commandToExit)
-            {
                 Console.WriteLine("\nВведите команду: ");
-
                 userInput = Console.ReadLine();
 
                 if (userInput == getSumArray)
@@ -55,7 +56,12 @@ namespace Динамический_массив
                     Console.WriteLine("\nСумма всех введенных чисел массива: " + sumArrayInitial);
                 }
 
-                else 
+                if (userInput == commandToExit)
+                {
+                    isWork = false;
+                }
+
+                else
                 {
                     arrayInitial = augmentedArray;
                     augmentedArray[augmentedArray.Length - 1] = Convert.ToInt32(userInput);
@@ -66,7 +72,10 @@ namespace Динамический_массив
                         Console.Write(arrayInitial[i] + " ");
                     }
                 }
+
+                Console.Clear();
             }
+
             Console.ReadKey();
         }
     }
