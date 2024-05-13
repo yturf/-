@@ -24,8 +24,6 @@ namespace Динамический_массив
             arraySize = Convert.ToInt32(Console.ReadLine());
 
             int[] arrayInitial = new int[arraySize];
-            int[] augmentedArray = new int[arrayInitial.Length + 1];
-
 
             for (int i = 0; i < arrayInitial.Length; i++)
             {
@@ -48,7 +46,6 @@ namespace Динамический_массив
                         {
                             for (int i = 0; i < arrayInitial.Length; i++)
                             {
-                                augmentedArray[i] = arrayInitial[i];
                                 sumArrayInitial += arrayInitial[i];
                                 Console.Write(arrayInitial[i] + " ");
                             }
@@ -64,6 +61,8 @@ namespace Динамический_массив
 
                     default:
                         {
+                            int[] augmentedArray = new int[arrayInitial.Length + 1];
+
                             Console.WriteLine("\nНовый массив:");
 
                             arrayInitial = augmentedArray;
@@ -78,6 +77,7 @@ namespace Динамический_массив
                         break;
 
                 }
+                Console.ReadKey();
             }
         }
     }
