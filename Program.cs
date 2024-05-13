@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Динамический_массив
 {
@@ -31,36 +27,36 @@ namespace Динамический_массив
                 arrayInitial[i] = Convert.ToInt32(Console.ReadLine());
             }
 
-            while (isWork)
+            Console.WriteLine("Чтобы узнать сумму всех введенных чисел массива, " +
+             "введите команду - sum");
+            Console.WriteLine("Чтобы выйти из программы введите команду - exit");
+            Console.WriteLine("\nИсходный массив:");
+                   Console.Clear();
+
+            switch (userInput)
             {
-                Console.Clear();
 
-                Console.WriteLine("Чтобы узнать сумму всех введенных чисел массива, " +
-                    "введите команду - sum");
-                Console.WriteLine("Чтобы выйти из программы введите команду - exit");
-                Console.WriteLine("\nИсходный массив:");
 
-                for (int i = 0; i < arrayInitial.Length; i++)
+
+                case "getSumArray":
                 {
-                    augmentedArray[i] = arrayInitial[i];
-                    sumArrayInitial += arrayInitial[i];
-                    Console.Write(arrayInitial[i] + " ");
-                }
-
-                Console.WriteLine("\nВведите команду: ");
-                userInput = Console.ReadLine();
-
-                if (userInput == getSumArray)
-                {
+                    for (int i = 0; i < arrayInitial.Length; i++)
+                    {
+                        augmentedArray[i] = arrayInitial[i];
+                        sumArrayInitial += arrayInitial[i];
+                        Console.Write(arrayInitial[i] + " ");
+                    }
                     Console.WriteLine("Сумма всех введенных чисел исходного массива равна: " + sumArrayInitial);
                 }
+                break;
 
-                else if (userInput == commandToExit)
+            case "commandToExit":
                 {
                     isWork = false;
                 }
+                break;
 
-                else
+            default:
                 {
                     Console.WriteLine("\nНовый массив:");
 
@@ -73,10 +69,13 @@ namespace Динамический_массив
                         Console.Write(augmentedArray[i] + " ");
                     }
                 }
+                break;
 
-                Console.ReadKey();
             }
-
+        }
+                        
+            
         }
     }
-}
+
+
