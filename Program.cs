@@ -40,6 +40,9 @@ namespace Динамический_массив
                     Console.Write(arrayInitial[i] + " ");
                 }
 
+                Console.WriteLine();
+                userInput = Console.ReadLine();
+
                 switch (userInput)
                 {
                     case CommandGetSumArray:
@@ -63,21 +66,19 @@ namespace Динамический_массив
                         {
                             int[] augmentedArray = new int[arrayInitial.Length + 1];
 
-                            for (int i = 0;i < arrayInitial.Length; i++)
+                            for (int i = 0; i < arrayInitial.Length; i++)
                             {
-                                arrayInitial[i] = augmentedArray[i];
+                                augmentedArray[i] = arrayInitial[i];
                             }
-
-                            Console.WriteLine("\nНовый массив:");
-
+                            augmentedArray[augmentedArray.Length - 1] = Convert.ToInt32(userInput); 
                             arrayInitial = augmentedArray;
-                            augmentedArray[augmentedArray.Length - 1] = Convert.ToInt32(userInput);
 
-                            for (int i = 0; i < augmentedArray.Length; i++)
+
+                            for (int i = 0; i < arrayInitial.Length; i++)
                             {
-                                arrayInitial[i] = augmentedArray[i];
-                                Console.Write(augmentedArray[i] + " ");
+                                Console.WriteLine("\nНовый массив: " + arrayInitial[i]);
                             }
+
                         }
                         break;
 
