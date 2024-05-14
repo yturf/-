@@ -63,6 +63,11 @@ namespace Динамический_массив
                         {
                             int[] augmentedArray = new int[arrayInitial.Length + 1];
 
+                            for (int i = 0;i < arrayInitial.Length; i++)
+                            {
+                                arrayInitial[i] = augmentedArray[i];
+                            }
+
                             Console.WriteLine("\nНовый массив:");
 
                             arrayInitial = augmentedArray;
