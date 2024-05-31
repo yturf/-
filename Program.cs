@@ -20,19 +20,19 @@ namespace Динамический_массив
              "введите команду - sum");
             Console.WriteLine("Чтобы выйти из программы введите команду - exit");
 
-            Console.Write("Введите размер массива: ");
-            arraySize = Convert.ToInt32(Console.ReadLine());
-
-            int[] arrayInitial = new int[arraySize];
-
-            for (int i = 0; i < arrayInitial.Length; i++)
-            {
-                Console.WriteLine($"Введите элемент массива под индексом {i}");
-                arrayInitial[i] = Convert.ToInt32(Console.ReadLine());
-            }
-
             while (isWork)
-            {
+            {            
+                Console.Write("\nВведите размер массива: ");
+                arraySize = Convert.ToInt32(Console.ReadLine());
+
+                int[] arrayInitial = new int[arraySize];
+
+                for (int i = 0; i < arrayInitial.Length; i++)
+                {
+                    Console.WriteLine($"Введите элемент массива под индексом {i}");
+                    arrayInitial[i] = Convert.ToInt32(Console.ReadLine());
+                }
+
                 Console.WriteLine("\nИсходный массив:");
 
                 for (int i = 0; i < arrayInitial.Length; i++)
@@ -40,7 +40,7 @@ namespace Динамический_массив
                     Console.Write(arrayInitial[i] + " ");
                 }
 
-                Console.WriteLine();
+                Console.WriteLine("\nВведите команду: ");
                 userInput = Console.ReadLine();
 
                 switch (userInput)
@@ -70,20 +70,20 @@ namespace Динамический_массив
                             {
                                 augmentedArray[i] = arrayInitial[i];
                             }
-                            augmentedArray[augmentedArray.Length - 1] = Convert.ToInt32(userInput); 
+                            augmentedArray[augmentedArray.Length - 1] = Convert.ToInt32(userInput);
                             arrayInitial = augmentedArray;
 
+                            Console.Write("\nНовый массив: ");
 
                             for (int i = 0; i < arrayInitial.Length; i++)
                             {
-                                Console.WriteLine("\nНовый массив: " + arrayInitial[i]);
+                                Console.Write(arrayInitial[i] + " ");
                             }
 
                         }
                         break;
 
                 }
-                Console.ReadKey();
             }
         }
     }
