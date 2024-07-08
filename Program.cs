@@ -20,11 +20,26 @@ namespace Динамический_массив
             Console.WriteLine("Чтобы выйти из программы введите команду - " + CommandToExit);
             Console.Write("\nВведите размер массива: ");
 
-            while (isWork)
-            {
-                bool resultArraySize = int.TryParse(Console.ReadLine(), out arraySize);
+            bool resultArraySize = int.TryParse(Console.ReadLine(), out arraySize);
 
-                if (resultArraySize)
+            if (resultArraySize)
+            {
+
+            }
+            else
+            {
+                Console.WriteLine("Некорректный ввод!");
+            }
+
+            int[] arrayInitial = new int[arraySize];
+
+            for (int i = 0; i < arrayInitial.Length; i++)
+            {
+                Console.WriteLine($"Введите элемент массива под индексом {i}");
+
+                bool resultArrayInitial = int.TryParse(Console.ReadLine(), out arrayInitial[i]);
+
+                if (resultArrayInitial)
                 {
 
                 }
@@ -32,32 +47,17 @@ namespace Динамический_массив
                 {
                     Console.WriteLine("Некорректный ввод!");
                 }
+            }
 
-                int[] arrayInitial = new int[arraySize];
+            Console.WriteLine("\nИсходный массив:");
 
-                for (int i = 0; i < arrayInitial.Length; i++)
-                {
-                    Console.WriteLine($"Введите элемент массива под индексом {i}");
+            for (int i = 0; i < arrayInitial.Length; i++)
+            {
+                Console.Write(arrayInitial[i] + " ");
+            }
 
-                    bool resultArrayInitial = int.TryParse(Console.ReadLine(), out arrayInitial[i]);
-
-                    if (resultArrayInitial)
-                    {
-
-                    }
-                    else
-                    {
-                        Console.WriteLine("Некорректный ввод!");
-                    }
-                }
-
-                Console.WriteLine("\nИсходный массив:");
-
-                for (int i = 0; i < arrayInitial.Length; i++)
-                {
-                    Console.Write(arrayInitial[i] + " ");
-                }
-
+            while (isWork)
+            {
                 Console.WriteLine("\nВведите команду: ");
                 userInput = Console.ReadLine();
 
@@ -65,13 +65,13 @@ namespace Динамический_массив
                 {
                     case CommandGetSumArray:
                         {
-                            int sumArrayInitial = 0;
+                            int sum = 0;
 
                             for (int i = 0; i < arrayInitial.Length; i++)
                             {
-                                sumArrayInitial += arrayInitial[i];
+                                sum += arrayInitial[i];
                             }
-                            Console.WriteLine("Сумма всех введенных чисел исходного массива равна: " + sumArrayInitial);
+                            Console.WriteLine("Сумма всех введенных чисел исходного массива равна: " + sum);
                         }
                         break;
 
@@ -101,6 +101,7 @@ namespace Динамический_массив
 
                         }
                         break;
+
                 }
             }
         }
