@@ -23,7 +23,7 @@ namespace Динамический_массив
             {
                 for (int i = 0; i < arrayInitial.Length; i++)
                 {
-                    Console.Write("\nСтарый массив: " + arrayInitial[i]);
+                    Console.Write("\nМассив: " + arrayInitial[i]);
                 }
 
                 Console.WriteLine("\nВведите команду: ");
@@ -38,6 +38,7 @@ namespace Динамический_массив
                         {
                             sum += arrayInitial[i];
                         }
+
                         Console.WriteLine("Сумма всех введенных чисел исходного массива равна: " + sum);
                         break;
 
@@ -54,15 +55,7 @@ namespace Динамический_массив
                         }
                         temporaryArray[temporaryArray.Length - 1] = Convert.ToInt32(userInput);
                         arrayInitial = temporaryArray;
-
-                        Console.Write("\nНовый массив: ");
-
-                        for (int i = 0; i < arrayInitial.Length; i++)
-                        {
-                            Console.Write(arrayInitial[i] + " ");
-                        }
                         break;
-
                 }
             }
         }
