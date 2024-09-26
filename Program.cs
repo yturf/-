@@ -4,49 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Подмассив_повторений_чисел
+namespace Сортировка_чисел
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Random random = new Random();
+            int[] numbers = { -44, 2, 8, 4, 465, 6, -1, 8 };
 
-            int[] array = new int[30];
-
-            int maxRepetitions = 0;
-            int repeatingNumber = 0; 
-            int repetitions = 1;
-            int minRandomNumber = 1;
-            int maxRandomNumber = 8;
-
-            Console.Write("Массив: ");
-
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < numbers.Length - 1; i++)
             {
-                array[i] = random.Next(minRandomNumber, maxRandomNumber);
-                Console.Write(array[i] + " ");
-            }
-
-            for (int i = 0; i < array.Length - 1; i++)
-            {
-                if (array[i] == array[i + 1])
+                for (int j = 0; j < numbers.Length - 1; j++)
                 {
-                    repetitions++;
-                }
-                else
-                {
-                    repetitions = 1;
-                }
-                if (repetitions > maxRepetitions)
-                {
-                    maxRepetitions = repetitions;
-                    repeatingNumber = array[i];
+                    if (numbers[j] > numbers[j + 1])
+                    {
+                        int temp = numbers[j];
+                        numbers[j] = numbers[j + 1];
+                        numbers[j + 1] = temp;
+                    }
                 }
             }
 
-            Console.WriteLine($"\nЧисло {repeatingNumber} повторяется больше всех, " +
-                $"количество его повторений равно {maxRepetitions}.");
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                Console.Write(numbers[i] + " ");
+            }
 
             Console.ReadKey();
         }
