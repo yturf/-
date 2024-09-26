@@ -1,65 +1,52 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Динамический_массив
+namespace Подмассив_повторений_чисел
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            const string CommandGetSumArray = "sum";
-            const string CommandToExit = "exit";
+            Random random = new Random();
 
-            string userInput;
+            int[] array = new int[30];
 
-            bool isWork = true;
+            int numberOfRepetitions = 0;
+            int repeatingNumber = 0; 
+            int repetitions = 1; 
 
-            Console.WriteLine("Чтобы узнать сумму всех введенных чисел массива, " +
-             "введите команду - " + CommandGetSumArray);
-            Console.WriteLine("Чтобы выйти из программы введите команду - " + CommandToExit);
+            Console.Write("Массив: ");
 
-            int[] arrayInitial = new int[] { };
-
-            while (isWork)
+            for (int i = 0; i < array.Length; i++)
             {
-                for (int i = 0; i < arrayInitial.Length; i++)
+                array[i] = random.Next(1, 8);
+                Console.Write(array[i] + " ");
+            }
+
+            for (int i = 0; i < array.Length - 1; i++)
+            {
+                if (array[i] == array[i + 1])
                 {
-                    Console.Write("\nМассив: " + arrayInitial[i]);
+                    repetitions++;
                 }
-
-                Console.WriteLine("\nВведите команду: ");
-                userInput = Console.ReadLine();
-
-                switch (userInput)
+                else
                 {
-                    case CommandGetSumArray:
-                        int sum = 0;
-
-                        for (int i = 0; i < arrayInitial.Length; i++)
-                        {
-                            sum += arrayInitial[i];
-                        }
-
-                        Console.WriteLine("Сумма всех введенных чисел исходного массива равна: " + sum);
-                        break;
-
-                    case CommandToExit:
-                        isWork = false;
-                        break;
-
-                    default:
-                        int[] temporaryArray = new int[arrayInitial.Length + 1];
-
-                        for (int i = 0; i < arrayInitial.Length; i++)
-                        {
-                            temporaryArray[i] = arrayInitial[i];
-                        }
-                        temporaryArray[temporaryArray.Length - 1] = Convert.ToInt32(userInput);
-                        arrayInitial = temporaryArray;
-                        break;
+                    repetitions = 1;
+                }
+                if (repetitions > numberOfRepetitions)
+                {
+                    numberOfRepetitions = repetitions;
+                    repeatingNumber = array[i];
                 }
             }
+
+            Console.WriteLine($"\nЧисло {repeatingNumber} повторяется больше всех, " +
+                $"количество его повторений равно {numberOfRepetitions}.");
+
+            Console.ReadKey();
         }
     }
 }
-
-
