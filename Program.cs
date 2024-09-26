@@ -14,15 +14,17 @@ namespace Подмассив_повторений_чисел
 
             int[] array = new int[30];
 
-            int numberOfRepetitions = 0;
+            int maxRepetitions = 0;
             int repeatingNumber = 0; 
-            int repetitions = 1; 
+            int repetitions = 1;
+            int minRandomNumber = 1;
+            int maxRandomNumber = 8;
 
             Console.Write("Массив: ");
 
             for (int i = 0; i < array.Length; i++)
             {
-                array[i] = random.Next(1, 8);
+                array[i] = random.Next(minRandomNumber, maxRandomNumber);
                 Console.Write(array[i] + " ");
             }
 
@@ -36,15 +38,15 @@ namespace Подмассив_повторений_чисел
                 {
                     repetitions = 1;
                 }
-                if (repetitions > numberOfRepetitions)
+                if (repetitions > maxRepetitions)
                 {
-                    numberOfRepetitions = repetitions;
+                    maxRepetitions = repetitions;
                     repeatingNumber = array[i];
                 }
             }
 
             Console.WriteLine($"\nЧисло {repeatingNumber} повторяется больше всех, " +
-                $"количество его повторений равно {numberOfRepetitions}.");
+                $"количество его повторений равно {maxRepetitions}.");
 
             Console.ReadKey();
         }
