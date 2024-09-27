@@ -4,30 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Сортировка_чисел
+namespace Split
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            int[] numbers = { -44, 2, 8, 4, 465, 6, -1, 8 };
+            string sentence = "Split используется для разрыва строки с разделителями на подстроки.";
 
-            for (int i = 0; i < numbers.Length - 1; i++)
-            {
-                for (int j = 0; j < numbers.Length - 1; j++)
-                {
-                    if (numbers[j] > numbers[j + 1])
-                    {
-                        int temp = numbers[j];
-                        numbers[j] = numbers[j + 1];
-                        numbers[j + 1] = temp;
-                    }
-                }
-            }
+            char[] separators = new char[] { ' ', '.' };
 
-            for (int i = 0; i < numbers.Length; i++)
+            string[] arrayOfWords = sentence.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string word in arrayOfWords)
             {
-                Console.Write(numbers[i] + " ");
+                Console.WriteLine($"Слово: {word}");
             }
 
             Console.ReadKey();
