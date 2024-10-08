@@ -1,46 +1,50 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Сдвиг_значений_массива
+namespace Скобочное_выражение
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            int[] array = new int[5] { 4, 6, 8, 33, 9 };
+            string line;
 
-            int positionShift;
+            char leftSymbol = '(';
+            char rightSymbol = ')';
 
-            Console.Write("Массив: ");
+            int numberOfSymbolOnTheLeft = - 1;
+            int stack = 0;
 
-            for (int i = 0; i < array.Length; i++)
-            {
-                Console.Write(array[i] + " ");
+            Console.Write($"Введите строку используя символы {leftSymbol} и {rightSymbol}: ");
+            line = Console.ReadLine();
+            
+            for ( int i = 0; i < line.Length; i++ )
+            {   
+                if (line[i] == leftSymbol)
+                {
+                    stack++;
+                    numberOfSymbolOnTheLeft++;
+                }              
+
+                else
+                {
+                    stack--;
+                }             
             }
 
-            Console.Write("\nУкажите значение для сдвига массива влево: ");
-            positionShift = Convert.ToInt32(Console.ReadLine());
-
-            int newPositionShift = positionShift % array.Length;
-
-            for (int i = 0; i < newPositionShift; i++)
+            if (line[0] == rightSymbol && line.Length - 1 == leftSymbol)
             {
-                int lastArray = array[array.Length - 1];
-
-                for (int j = array.Length - 1; j > 0; j--)
-                    array[j] = array[j - 1];
-
-                array[0] = lastArray;
+                stack = 1;
             }
 
-            Console.Write("Сдвинутый массив: ");
-
-            for (int i = 0; i < array.Length; ++i)
+            if (stack == 0)
             {
-                Console.Write(array[i] + " ");
+                Console.WriteLine("Скобочное выражение является корректным." +
+                    "Максимальная глубина вложенности строк равна: " + numberOfSymbolOnTheLeft);
+            }
+
+            else
+            {
+                Console.WriteLine("Скобочное выражение является некорректным.");
             }
 
             Console.ReadKey();
