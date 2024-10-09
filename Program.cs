@@ -11,27 +11,27 @@ namespace Скобочное_выражение
             char leftSymbol = '(';
             char rightSymbol = ')';
 
-            int numberOfSymbolOnTheLeft = - 1;
+            int maxDepth = 0;
             int stack = 0;
 
             Console.Write($"Введите строку используя символы {leftSymbol} и {rightSymbol}: ");
             line = Console.ReadLine();
-            
-            for ( int i = 0; i < line.Length; i++ )
-            {   
+
+            for (int i = 0; i < line.Length; i++)
+            {
                 if (line[i] == leftSymbol)
                 {
                     stack++;
-                    numberOfSymbolOnTheLeft++;
-                }              
+                    maxDepth++;
+                }
 
                 else
                 {
                     stack--;
-                }             
+                }
             }
 
-            if (line[0] == rightSymbol && line.Length - 1 == leftSymbol)
+            if (line[0] == rightSymbol && line[line.Length - 1] == leftSymbol)
             {
                 stack = 1;
             }
@@ -39,7 +39,7 @@ namespace Скобочное_выражение
             if (stack == 0)
             {
                 Console.WriteLine("Скобочное выражение является корректным." +
-                    "Максимальная глубина вложенности строк равна: " + numberOfSymbolOnTheLeft);
+                    "Максимальная глубина вложенности строк равна: " + maxDepth);
             }
 
             else
