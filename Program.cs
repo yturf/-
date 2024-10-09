@@ -1,53 +1,40 @@
 ﻿using System;
 
-namespace Скобочное_выражение
+namespace Readint
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            string line;
+            int numder;
 
-            char leftSymbol = '(';
-            char rightSymbol = ')';
+            requestingNumber(out numder);
 
-            int maxDepth = 0;
-            int stack = 0;
+            Console.ReadKey();
+        }
 
-            Console.Write($"Введите строку используя символы {leftSymbol} и {rightSymbol}: ");
-            line = Console.ReadLine();
-
-            for (int i = 0; i < line.Length; i++)
+        static int requestingNumber(out int numder)
+        {
+            while (true)
             {
-                if (line[i] == leftSymbol)
+                Console.Write("Введите число: ");
+                string input = Console.ReadLine();
+
+                Console.Clear();
+
+                bool result = int.TryParse(input, out numder);
+
+                if (result == true)
                 {
-                    stack++;
-                    maxDepth++;
+                    Console.WriteLine($"Конвертация прошла успешно. Число: {numder}.");
+                    return numder;
                 }
 
                 else
                 {
-                    stack--;
+                    Console.WriteLine($"Конвертация не удалась...");
                 }
             }
-
-            if (line[0] == rightSymbol && line[line.Length - 1] == leftSymbol)
-            {
-                stack = 1;
-            }
-
-            if (stack == 0)
-            {
-                Console.WriteLine("Скобочное выражение является корректным." +
-                    "Максимальная глубина вложенности строк равна: " + maxDepth);
-            }
-
-            else
-            {
-                Console.WriteLine("Скобочное выражение является некорректным.");
-            }
-
-            Console.ReadKey();
         }
     }
 }
