@@ -6,33 +6,34 @@ namespace Readint
     {
         static void Main(string[] args)
         {
-            int numder;
+            int number;
 
-            requestingNumber(out numder);
-
+            RequestNumber(out number);
+            Console.WriteLine($"Конвертация прошла успешно. Число: {number}.");
             Console.ReadKey();
         }
 
-        static int requestingNumber(out int numder)
+        static int RequestNumber(out int number)
         {
+            Console.Write("Введите число: ");
+
+            string input = Console.ReadLine();
+
+            bool isWork = int.TryParse(input, out number);           
+
             while (true)
             {
-                Console.Write("Введите число: ");
-                string input = Console.ReadLine();
-
                 Console.Clear();
 
-                bool result = int.TryParse(input, out numder);
-
-                if (result == true)
+                if (isWork == true)
                 {
-                    Console.WriteLine($"Конвертация прошла успешно. Число: {numder}.");
-                    return numder;
-                }
-
+                    return number;
+                }               
                 else
                 {
                     Console.WriteLine($"Конвертация не удалась...");
+                    Console.Write("Введите число: ");
+                    input = Console.ReadLine();
                 }
             }
         }
