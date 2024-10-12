@@ -1,29 +1,56 @@
 ﻿using System;
+using System.IO;
 
-namespace Readint
+namespace Test
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            int number;
+            char[,] map = ReadMap("map.txt");
 
-            RequestNumber(out number);
-
-            Console.WriteLine($"Конвертация прошла успешно. Число: {number}.");
+            for (int x = 0; x < map.GetLength(1); x++)
+            {
+                for(int y = 0; y < map.GetLength(0); y++)
+                {
+                    Console.Write(map[y, x]);
+                }
+                Console.WriteLine();
+            }
             Console.ReadKey();
         }
 
-        static int RequestNumber(out int number)
+        private static char[,] ReadMap(string path)
         {
-            Console.Write("Введите число: ");
+            string[] file = File.ReadAllLines("map.txt");
+            Console.WriteLine(file.Length);
+            //string[] file = new string[]
+            //{
+            //    "###",
+            //    "###"
+            //};
+            char[,] map = new char[file.Length, GetMaxLengthOfLine(file)];
 
-            while (int.TryParse(Console.ReadLine(), out number) == false)
+            for (int x = 0; x < map.GetLength(1); x++)
             {
-                Console.Write($"Проверьте правильность ввода!\nВведите число: ");               
+                for(int y = 0; y < map.GetLength(0); y++)
+                {
+                    map[y, x] = file[x] [y];
+                }
             }
+            return map;
+        }
 
-            return number;
+        private static int GetMaxLengthOfLine(string[] lines)
+        {
+            int maxLength = lines[0].Length;
+
+            foreach (string line in lines)
+            {
+                if(line.Length > maxLength)
+                    maxLength = line.Length;
+            }
+            return maxLength;
         }
     }
 }
