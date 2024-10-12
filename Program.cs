@@ -17,25 +17,18 @@ namespace Readint
         {
             Console.Write("Введите число: ");
 
-            string input = Console.ReadLine();
+            string userInput = Console.ReadLine();
 
-            bool isWork = int.TryParse(input, out number);           
+            bool isWork = int.TryParse(userInput, out number);
 
-            while (true)
+            while (isWork == false)
             {
-                Console.Clear();
-
-                if (isWork == true)
-                {
-                    return number;
-                }               
-                else
-                {
-                    Console.WriteLine($"Конвертация не удалась...");
-                    Console.Write("Введите число: ");
-                    input = Console.ReadLine();
-                }
+                Console.Write($"Проверьте правильность ввода!\nВведите число: ");
+                userInput = Console.ReadLine();
+                isWork = int.TryParse(userInput, out number);
             }
+
+            return number;
         }
     }
 }
