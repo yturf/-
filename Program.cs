@@ -1,29 +1,75 @@
 ﻿using System;
 
-namespace Readint
+namespace Health_Bar
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            int result = ReadInt();
+            int health;
+            int maxHealth = 10;
+            int mana;
+            int maxMana = 10;
 
-            Console.WriteLine($"Конвертация прошла успешно. Число: {result}.");
-            Console.ReadKey();
+            while (true)
+            {
+                Console.Write("Жизней у игрока осталось: ");
+                health = Convert.ToInt32(Console.ReadLine());
+
+                Console.Write("Маны у игрока осталось: ");
+                mana = Convert.ToInt32(Console.ReadLine());
+
+                Console.WriteLine("Параметры игрока\n");
+
+                if (health <= maxHealth)
+                {
+                    Bars(health, maxHealth, ConsoleColor.Red, 5, '_');
+                }
+                else
+                {
+                    Console.WriteLine("Неверный ввод!");
+                }
+
+                if (mana <= maxMana)
+                {
+                    Bars(mana, maxMana, ConsoleColor.Blue, 6, '_');
+                }
+                else
+                {
+                    Console.WriteLine("Неверный ввод!");
+                }
+
+                Console.ReadKey();
+                Console.Clear();
+            }
         }
 
-        static int ReadInt()
+        static void Bars(int value, int maxValue, ConsoleColor color, int position, char simvol)
         {
-            int number = 0;
+            ConsoleColor defoltColor = Console.BackgroundColor;
 
-            Console.Write("Введите число: ");
+            string bar = "";
 
-            while (int.TryParse(Console.ReadLine(), out number) == false)
+            for (int i = 0; i < value; i++)
             {
-                Console.Write($"Проверьте правильность ввода!\nВведите число: ");               
+                bar += simvol;
             }
 
-            return number;
+            Console.SetCursorPosition(0, position);
+            Console.Write("[");
+            Console.BackgroundColor = color;
+            Console.Write(bar);
+            Console.BackgroundColor = defoltColor;
+
+            bar = "";
+
+            for (int i = value; i < maxValue; i++)
+            {
+                bar += simvol;
+                Console.Write(" _");
+            }
+
+            Console.Write("]");
         }
     }
 }
