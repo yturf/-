@@ -1,44 +1,41 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class Countor : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _text;
+    private Coroutine _coroutine;
 
-    int score = 0;
+    public int score = 0;
+
+    public event Action<int> CoroutineEvent;
+
     float interval = 0.5f;
-
-    private void Start()
-    {
-        _text.text = "";
-    }
 
     private void Update()
     {
-        OnClick();
+        EventHandler();
     }
-    public void OnClick()
+    public void EventHandler()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            StartCoroutine(timeCounter());
+            _coroutine = StartCoroutine(TimeCounter());
         }
 
         else if (Input.GetMouseButtonDown(1))
         {
-            StopAllCoroutines();
+            StopCoroutine(_coroutine);
         }
     }
 
-    private IEnumerator timeCounter()
+    private IEnumerator TimeCounter()
     {
-        while (true)
+        while (enabled)
         {
             yield return new WaitForSeconds(interval);
             score++;
-            _text.text = "" + score;
+            CoroutineEvent?.Invoke(score);
         }
     }
 }
