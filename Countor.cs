@@ -6,26 +6,30 @@ public class Countor : MonoBehaviour
 {
     private Coroutine _coroutine;
 
-    public int score = 0;
+    private int score = 0;
 
-    public event Action<int> CoroutineEvent;
+    public event Action<int> ProcessedEvent;
 
-    float interval = 0.5f;
+    private float interval = 0.5f;
 
     private void Update()
     {
-        EventHandler();
+        GetHandler();
     }
-    public void EventHandler()
+
+    private void GetHandler()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            _coroutine = StartCoroutine(TimeCounter());
-        }
-
-        else if (Input.GetMouseButtonDown(1))
-        {
-            StopCoroutine(_coroutine);
+            if (_coroutine == null)
+            {
+                _coroutine = StartCoroutine(TimeCounter());
+            }
+            else
+            {
+                StopCoroutine(_coroutine);
+                _coroutine = null;
+            }
         }
     }
 
@@ -35,7 +39,7 @@ public class Countor : MonoBehaviour
         {
             yield return new WaitForSeconds(interval);
             score++;
-            CoroutineEvent?.Invoke(score);
+            ProcessedEvent?.Invoke(score);
         }
     }
 }
