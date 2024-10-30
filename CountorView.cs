@@ -13,12 +13,12 @@ public class CountorView : MonoBehaviour
 
     private void OnEnable()
     {
-        _countor.CoroutineEvent += DisplayCountor;
+        _countor.ProcessedEvent += DisplayCountor;
     }
 
     private void OnDisable()
     {
-        _countor.CoroutineEvent -= DisplayCountor;
+        _countor.ProcessedEvent -= DisplayCountor;
     }
 
     private void DisplayCountor(int score)
