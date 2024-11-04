@@ -4,7 +4,7 @@ using UnityEngine;
 public class CountorView : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
-    [SerializeField] private Countor _countor;
+    [SerializeField] private Counter _countor;
 
     private void Start()
     {
@@ -13,12 +13,12 @@ public class CountorView : MonoBehaviour
 
     private void OnEnable()
     {
-        _countor.ProcessedEvent += DisplayCountor;
+        _countor.Account += DisplayCountor;
     }
 
     private void OnDisable()
     {
-        _countor.ProcessedEvent -= DisplayCountor;
+        _countor.Account -= DisplayCountor;
     }
 
     private void DisplayCountor(int score)
