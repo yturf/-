@@ -1,78 +1,51 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 
-namespace Health_Bar
+namespace Канзас_сити_шафл
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            float healthPercent = 100;
-            float manaPercent = 100;
-            float barLength = 10;
+            int[] array = new int[6] { 4, 6, 9, 11, 2, 7 };
 
-            bool isWork = true;
+            ShowArray(array, "Исходный массив");
 
-            while (isWork)
+            Shuffle(array);
+
+            ShowArray(array, "\nПеремешанный массив");
+
+            Console.ReadKey();
+        }
+
+        static void Shuffle(int[] array)
+        {
+            Random random = new Random();
+
+            for (int i = 0; i < array.Length; i++)
             {
-                Console.Write("Жизней у игрока осталось: ");
-                healthPercent = ReadPercent();
+                int randomElement = random.Next(array[0], array.Length);
+                int currentArrayElement = array[i];
 
-                Console.Write("Маны у игрока осталось: ");
-                manaPercent = ReadPercent();
-
-                Console.WriteLine("Параметры игрока\n");
-
-                OutputBars("Здоровье: ", healthPercent, barLength, 4, '#');
-                OutputBars("Мана: ", manaPercent, barLength, 5, '#');
-
-                Console.ReadKey();
-                Console.Clear();
+                array[i] = array[randomElement];
+                array[randomElement] = currentArrayElement;
             }
-        }
+        }      
 
-        static string CreatorOfTheLine(int length, char simbol)
+        static int[] ShowArray(int[] array, string message)
         {
-            return new string(simbol, length);
-        }
+            Console.Write(message + ": ");
 
-        static void OutputBars(string message, float percent, float length, int position, char simbol)
-        {
-            int maxPercent = 100;
-            int filledLength = (int)(length * (percent / maxPercent));
-
-            Console.SetCursorPosition(0, position);
-            Console.Write($"{message}[");
-
-            Console.Write(CreatorOfTheLine(filledLength, simbol));
-            Console.Write(CreatorOfTheLine((int)length - filledLength, '_'));
-
-            Console.Write("]");
-        }
-
-        static int ReadPercent()
-        {
-            int percent = 0;
-            int minPercentValue = 0;
-            int maxPercentValue = 100;
-
-            bool isValidInput = true;
-
-            while (isValidInput)
+            for (int i = 0; i < array.Length; i++)
             {
-                string inputPercent = Console.ReadLine();
-
-                if (int.TryParse(inputPercent, out percent) && percent >= minPercentValue && percent <= maxPercentValue)
-                {
-                    isValidInput = false;
-                }
-                else
-                {
-                    Console.WriteLine($"Проверьте правильность ввода! Введите число от " +
-                        $"{minPercentValue} до {maxPercentValue}.");
-                }
+                Console.Write(array[i] + " ");
             }
 
-            return percent;
+            return array;
         }
     }
 }
