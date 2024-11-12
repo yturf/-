@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Eventing.Reader;
 
 namespace Health_Bar
 {
@@ -7,95 +6,73 @@ namespace Health_Bar
     {
         static void Main(string[] args)
         {
-            int health;
-            int maxHealth = 10;
-            int mana;
-            int maxMana = 10;
+            float healthPercent = 100;
+            float manaPercent = 100;
+            float barLength = 10;
 
             bool isWork = true;
 
             while (isWork)
             {
                 Console.Write("Жизней у игрока осталось: ");
-
-                CheckInputHealth(out health);
+                healthPercent = ReadPercent();
 
                 Console.Write("Маны у игрока осталось: ");
+                manaPercent = ReadPercent();
 
-                CheckInputMana(out mana);
+                Console.WriteLine("Параметры игрока\n");
 
-                if (health <= maxHealth && mana <= maxMana)
-                {
-                    Console.WriteLine("Параметры игрока\n");
-
-                    GetBars(health, maxHealth, ConsoleColor.Red, 5, '_');
-                    GetBars(mana, maxMana, ConsoleColor.Blue, 6, '_');
-
-                    isWork = false;
-                }
-                else
-                {
-                    Console.WriteLine("Неверный ввод!");
-                }                         
+                OutputBars("Здоровье: ", healthPercent, barLength, 4, '#');
+                OutputBars("Мана: ", manaPercent, barLength, 5, '#');
 
                 Console.ReadKey();
                 Console.Clear();
             }
         }
 
-        static void GetBars(int value, int maxValue, ConsoleColor color, int position, char simbol)
+        static string CreatorOfTheLine(int length, char simbol)
         {
-            if (value >= 0 && value <= maxValue)
-            {
-                ConsoleColor defoltColor = Console.BackgroundColor;
-
-                string bar = "";
-
-                for (int i = 0; i < value; i++)
-                {
-                    bar += simbol;
-                }
-
-                Console.SetCursorPosition(0, position);
-                Console.Write("[");
-                Console.BackgroundColor = color;
-                Console.Write(bar);
-                Console.BackgroundColor = defoltColor;
-
-                bar = "";
-
-                for (int i = value; i < maxValue; i++)
-                {
-                    bar += simbol;
-                    Console.Write(" _");
-                }
-
-                Console.Write("]");
-            }
-            else
-            {
-                Console.WriteLine("\nНеверный ввод!");
-            }
+            return new string(simbol, length);
         }
 
-        static void CheckInputHealth(out int health)
+        static void OutputBars(string message, float percent, float length, int position, char simbol)
         {
-            while (int.TryParse(Console.ReadLine(), out health) == false)
-            {
-                Console.Clear();
-                Console.Write($"Проверьте правильность ввода! Введите число: ");
-                Console.Write("\nЖизней у игрока осталось: ");
-            }
+            int maxPercent = 100;
+            int filledLength = (int)(length * (percent / maxPercent));
+
+            Console.SetCursorPosition(0, position);
+            Console.Write($"{message}[");
+
+            Console.Write(CreatorOfTheLine(filledLength, simbol));
+            Console.Write(CreatorOfTheLine((int)length - filledLength, '_'));
+
+            Console.Write("]");
         }
 
-        static void CheckInputMana(out int mana)
+        static int ReadPercent()
         {
-            while (int.TryParse(Console.ReadLine(), out mana) == false)
+            int percent = 0;
+            int minPercentValue = 0;
+            int maxPercentValue = 100;
+
+            bool isValidInput = true;
+
+            while (isValidInput)
             {
-                Console.Clear();
-                Console.Write($"Проверьте правильность ввода! Введите число: ");
-                Console.Write("\nМаны у игрока осталось: ");
+                string inputPercent = Console.ReadLine();
+
+                if (int.TryParse(inputPercent, out percent) && percent >= minPercentValue && percent <= maxPercentValue)
+                {
+                    isValidInput = false;
+                }
+                else
+                {
+                    Console.WriteLine($"Проверьте правильность ввода! Введите число от " +
+                        $"{minPercentValue} до {maxPercentValue}.");
+                }
             }
+
+            return percent;
         }
     }
 }
