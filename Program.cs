@@ -13,11 +13,11 @@ namespace Канзас_сити_шафл
         {
             int[] array = new int[6] { 4, 6, 9, 11, 2, 7 };
 
-            ShowArray(array, "Исходный массив");
+            Show(array, "Исходный массив");
 
             Shuffle(array);
 
-            ShowArray(array, "\nПеремешанный массив");
+            Show(array, "\nПеремешанный массив");
 
             Console.ReadKey();
         }
@@ -28,15 +28,15 @@ namespace Канзас_сити_шафл
 
             for (int i = 0; i < array.Length; i++)
             {
-                int randomElement = random.Next(array[0], array.Length);
+                int randomIndexElement = random.Next(array[0], array.Length);
                 int currentArrayElement = array[i];
 
-                array[i] = array[randomElement];
-                array[randomElement] = currentArrayElement;
+                array[i] = array[randomIndexElement];
+                array[randomIndexElement] = currentArrayElement;
             }
         }      
 
-        static int[] ShowArray(int[] array, string message)
+        static void Show(int[] array, string message)
         {
             Console.Write(message + ": ");
 
@@ -44,8 +44,6 @@ namespace Канзас_сити_шафл
             {
                 Console.Write(array[i] + " ");
             }
-
-            return array;
         }
     }
 }
