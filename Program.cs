@@ -66,25 +66,17 @@ namespace Кадровый_учёт
         static void AddInListOfDossiers(ref string[] fullNames, ref string[] fullPositions)
         {
             Console.WriteLine($"Введите ФИО сотрудника: ");
-            fullNames = AddDossier(Console.ReadLine(), fullNames);
+            fullNames = ExpandArray(Console.ReadLine(), fullNames);
 
             Console.WriteLine($"Введите должность сотрудника: ");
-            fullPositions = AddDossier(Console.ReadLine(), fullPositions);
+            fullPositions = ExpandArray(Console.ReadLine(), fullPositions);
 
             ShowDossier(fullNames, fullPositions);
 
             Console.Clear();
         }
 
-        static string[] AddDossier(string text, string[] oldArray)
-        {
-            oldArray = ExpandArray(oldArray);
-            oldArray[oldArray.Length - 1] = text;
-
-            return oldArray;
-        }
-
-        static string[] ExpandArray(string[] oldArray)
+        static string[] ExpandArray(string text, string[] oldArray)
         {
             string[] tempArray = new string[oldArray.Length + 1];
 
@@ -93,7 +85,10 @@ namespace Кадровый_учёт
                 tempArray[i] = oldArray[i];
             }
 
-            return tempArray;
+            oldArray = tempArray;
+            oldArray[oldArray.Length - 1] = text;
+
+            return oldArray;
         }
 
         static string[] ReduceArray(string[] reducedArray)
@@ -123,8 +118,8 @@ namespace Кадровый_учёт
 
         static void RemoveDossier(ref string[] firstArray, ref string[] secondArray)
         {
-            CheckingForCorrectNumberInput(out int indexToDelete);
-            CheckingTheNumberRange(firstArray, indexToDelete);
+            CheckNumberInput(out int indexToDelete);
+            CheckNumberRange(firstArray, indexToDelete);
 
             firstArray = ReducingArray(firstArray);
             secondArray = ReducingArray(secondArray);
@@ -154,7 +149,7 @@ namespace Кадровый_учёт
             return tempArray;
         }
 
-        static void CheckingForCorrectNumberInput(out int indexToDelete)
+        static void CheckNumberInput(out int indexToDelete)
         {
             Console.Write("Введите номер досье которое хотите удалить: ");
 
@@ -164,12 +159,12 @@ namespace Кадровый_учёт
             }
         }
 
-        static void CheckingTheNumberRange(string[] fullNames, int indexToDelete)
+        static void CheckNumberRange(string[] fullNames, int indexToDelete)
         {
             while (indexToDelete >= fullNames.Length || indexToDelete <= 0)
             {
                 Console.Write("Под таким номером нет сотрудника, еще раз: \n");
-                CheckingForCorrectNumberInput(out indexToDelete);
+                CheckNumberInput(out indexToDelete);
             }
         }
 
