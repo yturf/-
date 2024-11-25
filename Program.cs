@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace Кадровый_учёт
 {
@@ -28,25 +29,29 @@ namespace Кадровый_учёт
                 Console.WriteLine("Выход(нажмите) - " + CommandExit);
 
                 string userInput = Console.ReadLine();
-                int index = 0;
 
                 switch (userInput)
                 {
                     case CommandAddDossier:
                         AddInListOfDossiers(ref fullNames, ref fullPositions);
                         break;
+
                     case CommandPrintAllTheDossier:
                         ShowDossier(fullNames, fullPositions);
                         break;
+
                     case CommandDeleteTheDossier:
-                        RemoveDossier(ref fullNames, ref fullPositions, ref index);
+                        RemoveDossier(ref fullNames, ref fullPositions);
                         break;
+
                     case CommandSearchByLastName:
                         SearchByLastName(fullNames, fullPositions);
                         break;
+
                     case CommandExit:
                         isOpen = false;
                         break;
+
                     default:
                         Console.WriteLine("Ввод не распознан введите еще раз");
                         break;
@@ -116,38 +121,48 @@ namespace Кадровый_учёт
             Console.Clear();
         }
 
-        static void RemoveDossier(ref string[] firstArray, ref string[] secondArray, ref int index)
+        static void RemoveDossier(ref string[] firstArray, ref string[] secondArray)
         {
-            CheckingTheInputForDeletion(ref firstArray, ref secondArray);
+            CheckingForCorrectNumberInput(out int indexToDelete);
+            CheckingTheNumberRange(firstArray, indexToDelete);
 
             string[] newFirstArray = ReduceArray(firstArray);
             string[] newSecondArray = ReduceArray(secondArray);
 
-            for (int i = 0; i < index; i++)
+            for (int i = 0; i < indexToDelete; i++)
             {
                 newFirstArray[i] = firstArray[i];
                 newSecondArray[i] = secondArray[i];
             }
 
-            for (int i = index + 1; i < firstArray.Length && i < secondArray.Length; i++)
+            for (int i = indexToDelete + 1; i < firstArray.Length && i < secondArray.Length; i++)
             {
                 newFirstArray[i - 1] = firstArray[i];
-                newSecondArray[i - 1] = secondArray[i];              
+                newSecondArray[i - 1] = secondArray[i];
             }
-            
+
             firstArray = newFirstArray;
             secondArray = newSecondArray;
 
             Console.Clear();
         }
 
-        static void CheckingTheInputForDeletion(ref string[] fullNames, ref string[] fullPositions)
+        static void CheckingForCorrectNumberInput(out int indexToDelete)
         {
             Console.Write("Введите номер досье которое хотите удалить: ");
 
-            while (int.TryParse(Console.ReadLine(), out int indexToDelete) == false || indexToDelete > fullNames.Length || indexToDelete <= 0)
+            while (int.TryParse(Console.ReadLine(), out indexToDelete) == false)
             {
-                Console.Write("Введеное число не верного формата или под номером нет такого сотрудника, еще раз: ");
+                Console.Write("Введеное число не верного формата, еще раз: ");
+            }
+        }
+
+        static void CheckingTheNumberRange(string[] fullNames, int indexToDelete)
+        {
+            while (indexToDelete >= fullNames.Length || indexToDelete <= 0)
+            {
+                Console.Write("Под таким номером нет сотрудника, еще раз: \n");
+                CheckingForCorrectNumberInput(out indexToDelete);
             }
         }
 
