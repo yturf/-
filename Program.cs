@@ -121,32 +121,25 @@ namespace Кадровый_учёт
             CheckNumberInput(out int indexToDelete);
             CheckNumberRange(firstArray, indexToDelete);
 
-            firstArray = ReducingArray(firstArray);
-            secondArray = ReducingArray(secondArray);
+            string[] tempFirstArray = ReduceArray(firstArray);
+            string[] tempSecondArray = ReduceArray(secondArray);
 
             for (int i = 0; i < indexToDelete; i++)
             {
-                firstArray[i] = firstArray[i];
-                secondArray[i] = secondArray[i];
+                tempFirstArray[i] = firstArray[i];
+                tempSecondArray[i] = secondArray[i];
             }
 
             for (int i = indexToDelete + 1; i < firstArray.Length && i < secondArray.Length; i++)
             {
-                firstArray[i - 1] = firstArray[i];
-                secondArray[i - 1] = secondArray[i];
+                tempFirstArray[i - 1] = firstArray[i];
+                tempSecondArray[i - 1] = secondArray[i];
             }
 
-            firstArray = firstArray;
-            secondArray = secondArray;
+            firstArray = tempFirstArray;
+            secondArray = tempSecondArray;
 
             Console.Clear();
-        }
-
-        static string[] ReducingArray(string[] reduceArray)
-        {
-            string[] tempArray = ReduceArray(reduceArray);
-
-            return tempArray;
         }
 
         static void CheckNumberInput(out int indexToDelete)
