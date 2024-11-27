@@ -142,7 +142,7 @@ namespace Кадровый_учёт
             Console.Clear();
         }
 
-        static void CheckNumberInput(out int indexToDelete)
+        static int CheckNumberInput(out int indexToDelete)
         {
             Console.Write("Введите номер досье которое хотите удалить: ");
 
@@ -150,15 +150,19 @@ namespace Кадровый_учёт
             {
                 Console.Write("Введеное число не верного формата, еще раз: ");
             }
+
+            return indexToDelete;
         }
 
-        static void CheckNumberRange(string[] fullNames, int indexToDelete)
+        static int CheckNumberRange(string[] fullNames, int indexToDelete)
         {
             while (indexToDelete >= fullNames.Length || indexToDelete <= 0)
             {
                 Console.Write("Под таким номером нет сотрудника, еще раз: \n");
                 CheckNumberInput(out indexToDelete);
             }
+
+            return indexToDelete;
         }
 
         static void SearchByLastName(string[] fullNames, string[] fullPositions) 
