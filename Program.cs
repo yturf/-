@@ -147,7 +147,7 @@ namespace PersonnelAccounting
 
         static int CheckNumberRange(string[] fullNames, int indexToDelete)
         {
-            while (indexToDelete > fullNames.Length || indexToDelete <= 0)
+            if (indexToDelete > fullNames.Length || indexToDelete <= 0)
             {
                 Console.Write("Под таким номером нет сотрудника, еще раз: \n");
                 CheckNumberInput(indexToDelete);
