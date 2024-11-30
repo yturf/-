@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Reflection;
 
-namespace Кадровый_учёт
+namespace PersonnelAccounting
 {
     internal class Program
     {
@@ -91,13 +90,18 @@ namespace Кадровый_учёт
             return oldArray;
         }
 
-        static string[] ReduceArray(string[] reducedArray)
+        static string[] ReduceArray(string[] reducedArray, int index)
         {
             string[] tempArray = new string[reducedArray.Length - 1];
-            
-            for(int i = 0; i < tempArray.Length; i++)
+
+            for (int i = 0, j = 0; i < tempArray.Length; i++, j++)
             {
-                tempArray[i] = reducedArray[i];
+                if (j == index)
+                {
+                    j++;
+                }
+
+                tempArray[i] = reducedArray[j];
             }
 
             return tempArray;
@@ -118,35 +122,22 @@ namespace Кадровый_учёт
 
         static void RemoveDossier(ref string[] firstArray, ref string[] secondArray)
         {
-            CheckNumberInput(out int indexToDelete);
+            int indexToDelete = 0;
+
+            indexToDelete = CheckNumberInput(indexToDelete);
             CheckNumberRange(firstArray, indexToDelete);
 
-            string[] tempFirstArray = ReduceArray(firstArray);
-            string[] tempSecondArray = ReduceArray(secondArray);
-
-            for (int i = 0; i < indexToDelete; i++)
-            {
-                tempFirstArray[i] = firstArray[i];
-                tempSecondArray[i] = secondArray[i];
-            }
-
-            for (int i = indexToDelete + 1; i < firstArray.Length && i < secondArray.Length; i++)
-            {
-                tempFirstArray[i - 1] = firstArray[i];
-                tempSecondArray[i - 1] = secondArray[i];
-            }
-
-            firstArray = tempFirstArray;
-            secondArray = tempSecondArray;
+            firstArray = ReduceArray(firstArray, indexToDelete - 1);
+            secondArray = ReduceArray(secondArray, indexToDelete - 1);
 
             Console.Clear();
         }
 
-        static int CheckNumberInput(out int indexToDelete)
+        static int CheckNumberInput(int indexToDelete)
         {
             Console.Write("Введите номер досье которое хотите удалить: ");
 
-            while (int.TryParse(Console.ReadLine(), out indexToDelete) == false)
+            while (!int.TryParse(Console.ReadLine(), out indexToDelete))
             {
                 Console.Write("Введеное число не верного формата, еще раз: ");
             }
@@ -156,36 +147,35 @@ namespace Кадровый_учёт
 
         static int CheckNumberRange(string[] fullNames, int indexToDelete)
         {
-            while (indexToDelete >= fullNames.Length || indexToDelete <= 0)
+            while (indexToDelete > fullNames.Length || indexToDelete <= 0)
             {
                 Console.Write("Под таким номером нет сотрудника, еще раз: \n");
-                CheckNumberInput(out indexToDelete);
+                CheckNumberInput(indexToDelete);
             }
 
             return indexToDelete;
         }
 
-        static void SearchByLastName(string[] fullNames, string[] fullPositions) 
+        static void SearchByLastName(string[] fullNames, string[] fullPositions)
         {
             Console.Write("Введите фамилия для поиска: ");
             string surnameToFind = Console.ReadLine();
 
-            char space = ' ';
-            string[] tempArray;
+            string[] nameParts;
             bool doesDossierExist = false;
 
             for (int i = 0; i < fullNames.Length; i++)
             {
-                tempArray = fullNames[i].Split(space);
+                nameParts = fullNames[i].Split();
 
-                if (surnameToFind.ToLower() == tempArray[0].ToLower())
+                if (surnameToFind.ToLower() == nameParts[0].ToLower())
                 {
                     Console.WriteLine($"ФИО сотрудника: {fullNames[i]}. Должность сотрудника: {fullPositions[i]}.");
                     doesDossierExist = true;
                 }
             }
 
-            if (doesDossierExist == false)
+            if (!doesDossierExist)
             {
                 Console.WriteLine("С такой фамилией досье не найдено!");
             }
