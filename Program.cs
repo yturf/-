@@ -1,19 +1,19 @@
 ﻿using System;
 
-namespace PersonnelAccounting
+namespace Прак
 {
     internal class Program
     {
         static void Main(string[] args)
         {
             const string CommandAddDossier = "1";
-            const string CommandPrintAllTheDossier = "2";
-            const string CommandDeleteTheDossier = "3";
+            const string CommandPrintAllDossier = "2";
+            const string CommandDeleteDossier = "3";
             const string CommandSearchByLastName = "4";
             const string CommandExit = "5";
 
-            string[] fullNames = { "Иванов Пётр Сергеевич", "Козлов Виталий Александрович" };
-            string[] fullPositions = { "Маляр", "Плотник" };
+            string[] employeeFullNames = { "Иванов Иван Иванович", "Петров Петр Петрович" };
+            string[] employeePositions = { "Инженер", "Плотник" };
 
             bool isOpen = true;
 
@@ -22,8 +22,8 @@ namespace PersonnelAccounting
                 Console.SetCursorPosition(5, 0);
                 Console.WriteLine("Меню");
                 Console.WriteLine("Добавить досье(нажмите) - " + CommandAddDossier);
-                Console.WriteLine("Вывести всё досье(нажмите) - " + CommandPrintAllTheDossier);
-                Console.WriteLine("Удалить досье(нажмите) - " + CommandDeleteTheDossier);
+                Console.WriteLine("Вывести всё досье(нажмите) - " + CommandPrintAllDossier);
+                Console.WriteLine("Удалить досье(нажмите) - " + CommandDeleteDossier);
                 Console.WriteLine("Поиск по фамилии(нажмите) - " + CommandSearchByLastName);
                 Console.WriteLine("Выход(нажмите) - " + CommandExit);
 
@@ -32,19 +32,45 @@ namespace PersonnelAccounting
                 switch (userInput)
                 {
                     case CommandAddDossier:
-                        AddInListOfDossiers(ref fullNames, ref fullPositions);
+                        Console.Write("Введите ФИО сотрудника: ");
+                        string employeeFullName = Console.ReadLine();
+
+                        Console.Write("Введите должность сотрудника: ");
+                        string employeePosition = Console.ReadLine();
+
+                        AddNewDossier(employeeFullName, employeePosition, ref employeeFullNames, ref employeePositions);
+
                         break;
 
-                    case CommandPrintAllTheDossier:
-                        ShowDossier(fullNames, fullPositions);
+                    case CommandPrintAllDossier:
+                        PrintAllDossier(employeeFullNames, employeePositions);
                         break;
 
-                    case CommandDeleteTheDossier:
-                        RemoveDossier(ref fullNames, ref fullPositions);
+                    case CommandDeleteDossier:
+                        if (employeeFullNames.Length == 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Нет досье для удаления!");
+                            Console.ResetColor();
+                            break;
+                        }
+
+                        PrintAllDossier(employeeFullNames, employeePositions);
+                        Console.Write("Введите номер досье которое хотите удалить: ");
+
+                        if (int.TryParse(Console.ReadLine(), out int removeNumber) == false || ValidateIndex(removeNumber - 1, employeeFullNames.Length) == false)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Некорректный номер досье!");
+                            Console.ResetColor();
+                            break;
+                        }
+
+                        RemoveDossier(removeNumber - 1, ref employeeFullNames, ref employeePositions);
                         break;
 
                     case CommandSearchByLastName:
-                        SearchByLastName(fullNames, fullPositions);
+                        SearchByLastName(employeeFullNames, employeePositions);
                         break;
 
                     case CommandExit:
@@ -52,7 +78,9 @@ namespace PersonnelAccounting
                         break;
 
                     default:
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Ввод не распознан введите еще раз");
+                        Console.ResetColor();
                         break;
                 }
 
@@ -62,123 +90,89 @@ namespace PersonnelAccounting
             }
         }
 
-        static void AddInListOfDossiers(ref string[] fullNames, ref string[] fullPositions)
+        private static void AddNewDossier(string fullName, string position, ref string[] fullNames, ref string[] positions)
         {
-            Console.WriteLine($"Введите ФИО сотрудника: ");
-            fullNames = ExpandArray(Console.ReadLine(), fullNames);
+            string[] newFullNames = new string[fullNames.Length + 1];
+            string[] newPositions = new string[positions.Length + 1];
 
-            Console.WriteLine($"Введите должность сотрудника: ");
-            fullPositions = ExpandArray(Console.ReadLine(), fullPositions);
+            int length = fullNames.Length;
 
-            ShowDossier(fullNames, fullPositions);
-
-            Console.Clear();
-        }
-
-        static string[] ExpandArray(string text, string[] oldArray)
-        {
-            string[] tempArray = new string[oldArray.Length + 1];
-
-            for (int i = 0; i < oldArray.Length; i++)
+            for (int i = 0; i < length; i++)
             {
-                tempArray[i] = oldArray[i];
+                newFullNames[i] = fullNames[i];
+                newPositions[i] = positions[i];
             }
 
-            oldArray = tempArray;
-            oldArray[oldArray.Length - 1] = text;
+            fullNames = newFullNames;
+            positions = newPositions;
 
-            return oldArray;
+            fullNames[fullNames.Length - 1] = fullName;
+            positions[positions.Length - 1] = position;
         }
 
-        static string[] ReduceArray(string[] reducedArray, int index)
+        private static void PrintAllDossier(string[] fullNames, string[] positions)
         {
-            string[] tempArray = new string[reducedArray.Length - 1];
+            int length = fullNames.Length;
 
-            for (int i = 0, j = 0; i < tempArray.Length; i++, j++)
+            for (int i = 0; i < length; i++)
             {
-                if (j == index)
+                Console.WriteLine($"{i + 1}: ФИО сотрудника: {fullNames[i]}. Должность: {positions[i]}.");
+            }
+        }
+
+        private static void RemoveDossier(int removeIndex, ref string[] fullNames, ref string[] positions)
+        {
+            string[] newFullNames = new string[fullNames.Length - 1];
+            string[] newPositions = new string[positions.Length - 1];
+
+            int length = newFullNames.Length;
+
+            for (int i = 0, j = 0; i < length; i++, j++)
+            {
+                if (i == removeIndex)
                 {
-                    j++;
+                    i++;
                 }
 
-                tempArray[i] = reducedArray[j];
+                newFullNames[j] = fullNames[i];
+                newPositions[j] = positions[i];
             }
 
-            return tempArray;
+            fullNames = newFullNames;
+            positions = newPositions;
         }
 
-        static void ShowDossier(string[] tempFullNames, string[] tempFullPositions)
+        private static bool ValidateIndex(int index, int maxIndexLimit)
         {
-            Console.WriteLine("Список досье: ");
+            int minIndexLimit = 0;
 
-            for (int i = 0; i < tempFullNames.Length; i++)
-            {
-                Console.WriteLine($"Сотрудник под номером {i + 1}: {tempFullNames[i]}: {tempFullPositions[i]}");
-            }
-
-            Console.ReadKey();
-            Console.Clear();
+            return index >= minIndexLimit && index < maxIndexLimit;
         }
 
-        static void RemoveDossier(ref string[] firstArray, ref string[] secondArray)
+        static void SearchByLastName(string[] fullName, string[] Position)
         {
-            int indexToDelete = 0;
-
-            indexToDelete = CheckNumberInput(indexToDelete);
-            CheckNumberRange(firstArray, indexToDelete);
-
-            firstArray = ReduceArray(firstArray, indexToDelete - 1);
-            secondArray = ReduceArray(secondArray, indexToDelete - 1);
-
-            Console.Clear();
-        }
-
-        static int CheckNumberInput(int indexToDelete)
-        {
-            Console.Write("Введите номер досье которое хотите удалить: ");
-
-            while (!int.TryParse(Console.ReadLine(), out indexToDelete))
-            {
-                Console.Write("Введеное число не верного формата, еще раз: ");
-            }
-
-            return indexToDelete;
-        }
-
-        static int CheckNumberRange(string[] fullNames, int indexToDelete)
-        {
-            if (indexToDelete > fullNames.Length || indexToDelete <= 0)
-            {
-                Console.Write("Под таким номером нет сотрудника, еще раз: \n");
-                CheckNumberInput(indexToDelete);
-            }
-
-            return indexToDelete;
-        }
-
-        static void SearchByLastName(string[] fullNames, string[] fullPositions)
-        {
-            Console.Write("Введите фамилия для поиска: ");
+            Console.Write("Введите фамилию для поиска: ");
             string surnameToFind = Console.ReadLine();
 
-            string[] nameParts;
+            string[] tempArray;
             bool doesDossierExist = false;
 
-            for (int i = 0; i < fullNames.Length; i++)
+            for (int i = 0; i < fullName.Length; i++)
             {
-                nameParts = fullNames[i].Split();
+                tempArray = fullName[i].Split();
 
-                if (surnameToFind.ToLower() == nameParts[0].ToLower())
+                if (surnameToFind.ToLower() == tempArray[0].ToLower())
                 {
-                    Console.WriteLine($"ФИО сотрудника: {fullNames[i]}. Должность сотрудника: {fullPositions[i]}.");
+                    Console.WriteLine($"ФИО сотрудник: {fullName[i]}. Должность: {Position[i]}");
                     doesDossierExist = true;
                 }
             }
 
-            if (!doesDossierExist)
+            if (doesDossierExist == false)
             {
-                Console.WriteLine("С такой фамилией досье не найдено!");
+                Console.WriteLine("С такой фамилией досье не найдено...");
             }
         }
     }
 }
+
