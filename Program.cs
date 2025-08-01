@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Прак
+namespace Кадровый_учет
 {
     internal class Program
     {
@@ -32,14 +32,7 @@ namespace Прак
                 switch (userInput)
                 {
                     case CommandAddDossier:
-                        Console.Write("Введите ФИО сотрудника: ");
-                        string employeeFullName = Console.ReadLine();
-
-                        Console.Write("Введите должность сотрудника: ");
-                        string employeePosition = Console.ReadLine();
-
-                        AddNewDossier(employeeFullName, employeePosition, ref employeeFullNames, ref employeePositions);
-
+                        AddDossier(ref employeeFullNames, ref employeePositions);
                         break;
 
                     case CommandPrintAllDossier:
@@ -47,26 +40,7 @@ namespace Прак
                         break;
 
                     case CommandDeleteDossier:
-                        if (employeeFullNames.Length == 0)
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Нет досье для удаления!");
-                            Console.ResetColor();
-                            break;
-                        }
-
-                        PrintAllDossier(employeeFullNames, employeePositions);
-                        Console.Write("Введите номер досье которое хотите удалить: ");
-
-                        if (int.TryParse(Console.ReadLine(), out int removeNumber) == false || ValidateIndex(removeNumber - 1, employeeFullNames.Length) == false)
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Некорректный номер досье!");
-                            Console.ResetColor();
-                            break;
-                        }
-
-                        RemoveDossier(removeNumber - 1, ref employeeFullNames, ref employeePositions);
+                        RemoveDossier(ref employeeFullNames, ref employeePositions);
                         break;
 
                     case CommandSearchByLastName:
@@ -90,24 +64,32 @@ namespace Прак
             }
         }
 
-        private static void AddNewDossier(string fullName, string position, ref string[] fullNames, ref string[] positions)
+        private static void AddDossier(ref string[] fullNames, ref string[] positions)
         {
-            string[] newFullNames = new string[fullNames.Length + 1];
-            string[] newPositions = new string[positions.Length + 1];
+            Console.Write("Введите ФИО сотрудника: ");
+            string employeeFullName = Console.ReadLine();
 
-            int length = fullNames.Length;
+            Console.Write("Введите должность сотрудника: ");
+            string employeePosition = Console.ReadLine();
+
+            fullNames = AddElement(fullNames, employeeFullName);
+            positions = AddElement(positions, employeePosition);
+        }
+
+        private static string[] AddElement(string[] dossier, string element)
+        {
+            string[] tempArray = new string[dossier.Length + 1];
+
+            int length = dossier.Length;
 
             for (int i = 0; i < length; i++)
             {
-                newFullNames[i] = fullNames[i];
-                newPositions[i] = positions[i];
+                tempArray[i] = dossier[i];
             }
 
-            fullNames = newFullNames;
-            positions = newPositions;
+            tempArray[dossier.Length] = element;
 
-            fullNames[fullNames.Length - 1] = fullName;
-            positions[positions.Length - 1] = position;
+            return tempArray;
         }
 
         private static void PrintAllDossier(string[] fullNames, string[] positions)
@@ -120,26 +102,47 @@ namespace Прак
             }
         }
 
-        private static void RemoveDossier(int removeIndex, ref string[] fullNames, ref string[] positions)
+        private static void RemoveDossier(ref string[] fullNames, ref string[] positions)
         {
-            string[] newFullNames = new string[fullNames.Length - 1];
-            string[] newPositions = new string[positions.Length - 1];
-
-            int length = newFullNames.Length;
-
-            for (int i = 0, j = 0; i < length; i++, j++)
+            if (fullNames.Length == 0)
             {
-                if (i == removeIndex)
-                {
-                    i++;
-                }
-
-                newFullNames[j] = fullNames[i];
-                newPositions[j] = positions[i];
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Нет досье для удаления!");
+                Console.ResetColor();
             }
 
-            fullNames = newFullNames;
-            positions = newPositions;
+            PrintAllDossier(fullNames, positions);
+
+            Console.Write("Введите номер досье которое хотите удалить: ");
+
+            if (int.TryParse(Console.ReadLine(), out int numberToDelete) == false || ValidateIndex(numberToDelete - 1, fullNames.Length) == false)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Некорректный номер досье!");
+                Console.ResetColor();
+            }
+
+            int convertNumber = numberToDelete - 1;
+
+            fullNames = RemoveElement(convertNumber, fullNames);
+            positions = RemoveElement(convertNumber, positions);
+        }
+
+        private static string[] RemoveElement(int removeIndex, string[] array)
+        {
+            string[] tempArray = new string[array.Length - 1];
+
+            for (int i = 0; i < removeIndex; i++)
+            {
+                tempArray[i] = array[i];
+            }
+
+            for (int i = removeIndex + 1; i < array.Length; i++)
+            {
+                tempArray[i - 1] = array[i];
+            }
+
+            return tempArray;
         }
 
         private static bool ValidateIndex(int index, int maxIndexLimit)
@@ -155,7 +158,7 @@ namespace Прак
             string surnameToFind = Console.ReadLine();
 
             string[] tempArray;
-            bool doesDossierExist = false;
+            bool isDossierExist = false;
 
             for (int i = 0; i < fullName.Length; i++)
             {
@@ -164,15 +167,14 @@ namespace Прак
                 if (surnameToFind.ToLower() == tempArray[0].ToLower())
                 {
                     Console.WriteLine($"ФИО сотрудник: {fullName[i]}. Должность: {Position[i]}");
-                    doesDossierExist = true;
+                    isDossierExist = true;
                 }
             }
 
-            if (doesDossierExist == false)
+            if (isDossierExist == false)
             {
                 Console.WriteLine("С такой фамилией досье не найдено...");
             }
         }
     }
 }
-
