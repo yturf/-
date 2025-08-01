@@ -106,26 +106,24 @@ namespace Кадровый_учет
         {
             if (fullNames.Length == 0)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Нет досье для удаления!");
-                Console.ResetColor();
+                ChangeColor(ConsoleColor.Red, "Нет досье для удаления!");
+                return;
             }
 
             PrintAllDossier(fullNames, positions);
 
             Console.Write("Введите номер досье которое хотите удалить: ");
 
-            if (int.TryParse(Console.ReadLine(), out int numberToDelete) == false || ValidateIndex(numberToDelete - 1, fullNames.Length) == false)
+            if (int.TryParse(Console.ReadLine(), out int numberToDelete) == false || ValidateIndexRange(numberToDelete - 1, fullNames.Length) == false)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Некорректный номер досье!");
-                Console.ResetColor();
+                ChangeColor(ConsoleColor.Red, "Некорректный номер досье!");
+                return;
             }
 
-            int convertNumber = numberToDelete - 1;
+            int convertIndex = numberToDelete - 1;
 
-            fullNames = RemoveElement(convertNumber, fullNames);
-            positions = RemoveElement(convertNumber, positions);
+            fullNames = RemoveElement(convertIndex, fullNames);
+            positions = RemoveElement(convertIndex, positions);
         }
 
         private static string[] RemoveElement(int removeIndex, string[] array)
@@ -145,7 +143,7 @@ namespace Кадровый_учет
             return tempArray;
         }
 
-        private static bool ValidateIndex(int index, int maxIndexLimit)
+        private static bool ValidateIndexRange(int index, int maxIndexLimit)
         {
             int minIndexLimit = 0;
 
@@ -173,8 +171,15 @@ namespace Кадровый_учет
 
             if (isDossierExist == false)
             {
-                Console.WriteLine("С такой фамилией досье не найдено...");
+                ChangeColor(ConsoleColor.Red,"С такой фамилией досье не найдено...");
             }
+        }
+
+        private static void ChangeColor(ConsoleColor color, string text)
+        {
+            Console.ForegroundColor = color;
+            Console.WriteLine(text);
+            Console.ResetColor();
         }
     }
 }
