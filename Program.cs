@@ -1,185 +1,122 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading;
 
-namespace Кадровый_учет
+namespace Pac_Man
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            const string CommandAddDossier = "1";
-            const string CommandPrintAllDossier = "2";
-            const string CommandDeleteDossier = "3";
-            const string CommandSearchByLastName = "4";
-            const string CommandExit = "5";
+            Console.CursorVisible = false;
 
-            string[] employeeFullNames = { "Иванов Иван Иванович", "Петров Петр Петрович" };
-            string[] employeePositions = { "Инженер", "Плотник" };
+            int pacmanX = 1;
+            int pacmanY = 1;
+            int score = 0;
 
-            bool isOpen = true;
+            char[,] map = ReadMap("map.txt");
+            ConsoleKeyInfo pressedKey = new ConsoleKeyInfo('w', ConsoleKey.W, false, false, false);
 
-            while (isOpen)
+            while (true)
             {
-                Console.SetCursorPosition(5, 0);
-                Console.WriteLine("Меню");
-                Console.WriteLine("Добавить досье(нажмите) - " + CommandAddDossier);
-                Console.WriteLine("Вывести всё досье(нажмите) - " + CommandPrintAllDossier);
-                Console.WriteLine("Удалить досье(нажмите) - " + CommandDeleteDossier);
-                Console.WriteLine("Поиск по фамилии(нажмите) - " + CommandSearchByLastName);
-                Console.WriteLine("Выход(нажмите) - " + CommandExit);
-
-                string userInput = Console.ReadLine();
-
-                switch (userInput)
-                {
-                    case CommandAddDossier:
-                        AddDossier(ref employeeFullNames, ref employeePositions);
-                        break;
-
-                    case CommandPrintAllDossier:
-                        PrintAllDossier(employeeFullNames, employeePositions);
-                        break;
-
-                    case CommandDeleteDossier:
-                        RemoveDossier(ref employeeFullNames, ref employeePositions);
-                        break;
-
-                    case CommandSearchByLastName:
-                        SearchByLastName(employeeFullNames, employeePositions);
-                        break;
-
-                    case CommandExit:
-                        isOpen = false;
-                        break;
-
-                    default:
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Ввод не распознан введите еще раз");
-                        Console.ResetColor();
-                        break;
-                }
-
-                Console.WriteLine("Для продолжения нажмите любую кнопку");
-                Console.ReadKey();
+                Console.ForegroundColor = ConsoleColor.Gray;
                 Console.Clear();
+                DrawMap(map);
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.SetCursorPosition(pacmanX, pacmanY);
+                Console.WriteLine("@");
+
+                Console.SetCursorPosition(35, 0);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"score: {score}");
+                pressedKey = Console.ReadKey();
+
+                HandleInput(pressedKey, ref pacmanX, ref pacmanY, map, ref score);
             }
         }
 
-        private static void AddDossier(ref string[] fullNames, ref string[] positions)
+        private static char[,] ReadMap(string Path)
         {
-            Console.Write("Введите ФИО сотрудника: ");
-            string employeeFullName = Console.ReadLine();
+            string[] file = File.ReadAllLines("map.txt");
 
-            Console.Write("Введите должность сотрудника: ");
-            string employeePosition = Console.ReadLine();
+            char[,] map = new char[GetMaxLengthOfLine(file), file.Length];
 
-            fullNames = AddElement(fullNames, employeeFullName);
-            positions = AddElement(positions, employeePosition);
-        }
-
-        private static string[] AddElement(string[] dossier, string element)
-        {
-            string[] tempArray = new string[dossier.Length + 1];
-
-            int length = dossier.Length;
-
-            for (int i = 0; i < length; i++)
+            for (int x = 0; x < map.GetLength(0); x++)
             {
-                tempArray[i] = dossier[i];
-            }
-
-            tempArray[dossier.Length] = element;
-
-            return tempArray;
-        }
-
-        private static void PrintAllDossier(string[] fullNames, string[] positions)
-        {
-            int length = fullNames.Length;
-
-            for (int i = 0; i < length; i++)
-            {
-                Console.WriteLine($"{i + 1}: ФИО сотрудника: {fullNames[i]}. Должность: {positions[i]}.");
-            }
-        }
-
-        private static void RemoveDossier(ref string[] fullNames, ref string[] positions)
-        {
-            if (fullNames.Length == 0)
-            {
-                ChangeColor(ConsoleColor.Red, "Нет досье для удаления!");
-                return;
-            }
-
-            PrintAllDossier(fullNames, positions);
-
-            Console.Write("Введите номер досье которое хотите удалить: ");
-
-            if (int.TryParse(Console.ReadLine(), out int numberToDelete) == false || ValidateIndexRange(numberToDelete - 1, fullNames.Length) == false)
-            {
-                ChangeColor(ConsoleColor.Red, "Некорректный номер досье!");
-                return;
-            }
-
-            int convertIndex = numberToDelete - 1;
-
-            fullNames = RemoveElement(convertIndex, fullNames);
-            positions = RemoveElement(convertIndex, positions);
-        }
-
-        private static string[] RemoveElement(int removeIndex, string[] array)
-        {
-            string[] tempArray = new string[array.Length - 1];
-
-            for (int i = 0; i < removeIndex; i++)
-            {
-                tempArray[i] = array[i];
-            }
-
-            for (int i = removeIndex + 1; i < array.Length; i++)
-            {
-                tempArray[i - 1] = array[i];
-            }
-
-            return tempArray;
-        }
-
-        private static bool ValidateIndexRange(int index, int maxIndexLimit)
-        {
-            int minIndexLimit = 0;
-
-            return index >= minIndexLimit && index < maxIndexLimit;
-        }
-
-        static void SearchByLastName(string[] fullName, string[] Position)
-        {
-            Console.Write("Введите фамилию для поиска: ");
-            string surnameToFind = Console.ReadLine();
-
-            string[] tempArray;
-            bool isDossierExist = false;
-
-            for (int i = 0; i < fullName.Length; i++)
-            {
-                tempArray = fullName[i].Split();
-
-                if (surnameToFind.ToLower() == tempArray[0].ToLower())
+                for (int y = 0; y < map.GetLength(1); y++)
                 {
-                    Console.WriteLine($"ФИО сотрудник: {fullName[i]}. Должность: {Position[i]}");
-                    isDossierExist = true;
+                    map[x, y] = file[y][x];
                 }
             }
 
-            if (isDossierExist == false)
+            return map;
+        }
+
+        private static void HandleInput(ConsoleKeyInfo pressedKey, ref int pacmanX, ref int pacmanY, char[,] map, ref int score)
+        {
+            int[] derection = GetDerection(pressedKey);
+
+            int nextPacmanPositionX = pacmanX + derection[0];
+            int nextPacmanPositionY = pacmanY + derection[1];
+
+            char nextCell = map[nextPacmanPositionX, nextPacmanPositionY];
+
+            if (nextCell == ' ' || nextCell == '*')
             {
-                ChangeColor(ConsoleColor.Red,"С такой фамилией досье не найдено...");
+                pacmanX = nextPacmanPositionX;
+                pacmanY = nextPacmanPositionY;
+                
+                if (nextCell == '*')
+                {
+                    score++;
+                    map[nextPacmanPositionX, nextPacmanPositionY] = ' ';
+                }
             }
         }
 
-        private static void ChangeColor(ConsoleColor color, string text)
+        private static int[] GetDerection(ConsoleKeyInfo pressedKey)
         {
-            Console.ForegroundColor = color;
-            Console.WriteLine(text);
-            Console.ResetColor();
+            int[] derection = { 0, 0 };
+
+            if (pressedKey.Key == ConsoleKey.UpArrow)
+                derection[1] = -1;
+            else if (pressedKey.Key == ConsoleKey.DownArrow)
+                derection[1] = 1;
+            else if (pressedKey.Key == ConsoleKey.LeftArrow)
+                derection[0] = -1;
+            else if (pressedKey.Key == ConsoleKey.RightArrow)
+                derection[0] = 1;
+
+            return derection;
+        }
+
+        private static void DrawMap(char[,] map)
+        {
+            for (int y = 0; y < map.GetLength(1); y++)
+            {
+                for (int x = 0; x < map.GetLength(0); x++)
+                {
+                    Console.Write(map[x, y]);
+                }
+                Console.WriteLine();
+            }
+        }
+
+        private static int GetMaxLengthOfLine(string[] lines)
+        {
+            int maxLength = lines[0].Length;
+
+            foreach (var line in lines)
+            {
+                if (line.Length > maxLength)
+                {
+                    maxLength = line.Length;
+                }
+            }
+
+            return maxLength;
         }
     }
 }
