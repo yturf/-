@@ -9,8 +9,8 @@ namespace PacMan
         {
             Console.CursorVisible = false;
 
-            int pacmanX = 1;
-            int pacmanY = 1;
+            int pacmanPosX = 1;
+            int pacmanPosY = 1;
             int score = 0;
 
             bool isOpenGame = true;
@@ -18,7 +18,8 @@ namespace PacMan
             char[,] map = ReadMap("map.txt");
 
             ConsoleKeyInfo pressedKey = new ConsoleKeyInfo('w', ConsoleKey.W, false, false, false);
-            
+            ConsoleKey CloseGameButton = ConsoleKey.Escape;
+
             Console.WriteLine("Для выхода из игры нажмите клавишу: Esc");
 
             while (isOpenGame)
@@ -27,15 +28,20 @@ namespace PacMan
                 Console.Clear();
                 DrawMap(map);
 
-                DrawPlayer(pacmanX, pacmanY);
+                DrawPlayer(pacmanPosX, pacmanPosY);
                 DrawScore(score);
 
                 pressedKey = Console.ReadKey();
 
-                CloseGame(pressedKey, ref isOpenGame);
+                if (pressedKey.Key == CloseGameButton)
+                {
+                    isOpenGame = false;
+                    Console.Clear();
+                }
 
                 int[] derection = GetDerection(pressedKey);
-                MovePlayer(ref pacmanX, ref pacmanY, map, ref score, derection);
+
+                MovePlayer(ref pacmanPosX, ref pacmanPosY, map, ref score, derection);
             }
         }
 
@@ -71,11 +77,20 @@ namespace PacMan
                 pacmanX = nextPacmanPositionX;
                 pacmanY = nextPacmanPositionY;
 
-                if (nextCell == starChar)
-                {
-                    score++;
-                    map[nextPacmanPositionX, nextPacmanPositionY] = spaceChar;
-                }
+                ScoreCount(nextPacmanPositionX, nextPacmanPositionY, map, ref score);
+            }
+        }
+
+        private static void ScoreCount(int posX, int posY, char[,] map, ref int score)           
+        {
+            char spaceChar = ' ';
+            char starChar = '*';
+            char nextCell = map[posX, posY];
+
+            if (nextCell == starChar)
+            {
+                score++;
+                map[posX, posY] = spaceChar;
             }
         }
 
@@ -108,6 +123,7 @@ namespace PacMan
                 {
                     Console.Write(map[x, y]);
                 }
+
                 Console.WriteLine();
             }
         }
@@ -141,17 +157,6 @@ namespace PacMan
             }
 
             return maxLength;
-        }
-
-        private static bool CloseGame(ConsoleKeyInfo pressedKey, ref bool isOpenGame)
-        {
-            if (pressedKey.Key == ConsoleKey.Escape)
-            {
-                isOpenGame = false;  
-                Console.Clear();
-            }
-
-            return isOpenGame;
         }
     }
 }
