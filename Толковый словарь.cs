@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualBasic;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Толковый_словарь
@@ -9,11 +7,11 @@ namespace Толковый_словарь
     {
         static void Main(string[] args)
         {
-            Dictionary<string, string> ExplanatoryDictionary = new Dictionary<string, string>();
+            Dictionary<string, string> explanatoryDictionary = new Dictionary<string, string>();
 
-            ExplanatoryDictionary.Add("Друг", "человек, близкий по духу");
-            ExplanatoryDictionary.Add("Забота", "внимание, поддержка, оказание помощи");
-            ExplanatoryDictionary.Add("Задабривание", "умасливание лестью, услугами, подарками");
+            explanatoryDictionary.Add("Друг", "человек, близкий по духу");
+            explanatoryDictionary.Add("Забота", "внимание, поддержка, оказание помощи");
+            explanatoryDictionary.Add("Задабривание", "умасливание лестью, услугами, подарками");
 
             const string CommandExit = "Выйти";
 
@@ -22,7 +20,7 @@ namespace Толковый_словарь
             Console.WriteLine("Все слова в словаре.");
             Console.WriteLine("--------------------");
 
-            foreach (var key in ExplanatoryDictionary.Keys)
+            foreach (var key in explanatoryDictionary.Keys)
             {
                 Console.WriteLine(key);
             }
@@ -36,25 +34,25 @@ namespace Толковый_словарь
             {
                 string userInput = Console.ReadLine();
 
-                if (userInput == GetWord(ExplanatoryDictionary, userInput))
                 if (userInput.ToLower() == CommandExit.ToLower())
                     isOpen = false;
-                else
-                    Console.WriteLine("Такого слова нет...");
-            }
 
+                else
+                    GetWord(explanatoryDictionary, userInput);
+            }
         }
-        static string GetWord(Dictionary<string, string> dictionary, string needWord)
+
+        static void GetWord(Dictionary<string, string> dictionary, string needWord)
         {
-            foreach (var key in dictionary)
+            if (dictionary.ContainsKey(needWord))
             {
-                if (needWord == key.Key)
+                if (dictionary.TryGetValue(needWord, out string word))
                 {
-                    Console.WriteLine($"Слово - {key.Key}. Его значение - {key.Value}.");
+                    Console.WriteLine($"Слово - {needWord}. Его значение - {word}.");
                 }
             }
-
-            return needWord;
+            else
+                Console.WriteLine("Такого слова нет...");
         }
     }
 }
