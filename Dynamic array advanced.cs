@@ -8,16 +8,14 @@ namespace Dynamic_array_advanced
         static void Main(string[] args)
         {
             const string CommandFindSum = "Sum";
-            const string CommandAddNumber = "Add";
-            const string CommandShowList = "Show";
             const string CommandExit = "Exit";
 
             List<int> numbers = new List<int>();
 
             bool isOpen = true;
 
-            Console.WriteLine("Команды для ввода:\n1.Sum\n2.Add\n3.Show\n4.Exit");
-            Console.WriteLine("Введите команду: ");
+            Console.WriteLine("Команды для ввода:\n1.Sum\n2.Exit");
+            Console.WriteLine("Введите числа или команду: ");
 
             while (isOpen)
             {
@@ -25,16 +23,8 @@ namespace Dynamic_array_advanced
 
                 switch (userInput)
                 {
-                    case CommandAddNumber:
-                        AddNumbersToList(numbers);
-                        break;
-
                     case CommandFindSum:
                         ShowSum(SumAllNumbers(numbers));
-                        break;
-
-                    case CommandShowList:
-                        ShowList(numbers);
                         break;
 
                     case CommandExit:
@@ -42,21 +32,24 @@ namespace Dynamic_array_advanced
                         break;
 
                     default:
-                        Console.WriteLine("Ввод не распознан введите еще раз");
+                        AddNumbersToList(numbers, userInput);
                         break;
                 }
             }
         }
 
-        private static void AddNumbersToList(List<int> list)
+        private static void AddNumbersToList(List<int> list, string userInput)
         {
-            int number = 0;
+            int number = Convert.ToInt32(userInput);
 
-            Console.WriteLine("Введите число: ");
-
-            ValidateNumber(ref number);
-
-            list.Add(number);
+            if (int.TryParse(userInput, out number) == false)
+            {
+                Console.Write("Введеное число не верного формата, еще раз: ");
+            }
+            else
+            {
+                list.Add(number);
+            }
         }
 
         private static int SumAllNumbers(List<int> list)
@@ -74,22 +67,6 @@ namespace Dynamic_array_advanced
         private static void ShowSum(int count)
         {
             Console.WriteLine(count);
-        }
-
-        private static void ValidateNumber(ref int number)
-        {
-            while (int.TryParse(Console.ReadLine(), out number) == false)
-            {
-                Console.Write("Введеное число не верного формата, еще раз: ");
-            }
-        }
-
-        private static void ShowList(List<int> list)
-        {
-            foreach (int number in list)
-            {
-                Console.WriteLine(number);
-            }
         }
     }
 }
