@@ -14,7 +14,7 @@ namespace Dynamic_array_advanced
 
             bool isOpen = true;
 
-            Console.WriteLine("Команды для ввода:\n1.Sum\n2.Exit");
+            Console.WriteLine($"Команды для ввода:\n1.{CommandFindSum}\n2.{CommandExit}");
             Console.WriteLine("Введите числа или команду: ");
 
             while (isOpen)
@@ -40,7 +40,7 @@ namespace Dynamic_array_advanced
 
         private static void AddNumbersToList(List<int> list, string userInput)
         {
-            int number = Convert.ToInt32(userInput);
+            int number;
 
             if (int.TryParse(userInput, out number) == false)
             {
