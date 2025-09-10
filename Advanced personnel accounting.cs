@@ -14,9 +14,9 @@ namespace Advanced_personnel_accounting
 
             Dictionary<string, List<string>> employees = new Dictionary<string, List<string>>()
             {
-                { "Маляр", new List<string>{ "Иванов Пётр Сергеевич" } },
-                { "Плотник", new List<string>{"Козлов Виталий Александрович"} },
-                { "Программист", new List<string>{"Петров Иван Петрович" } }
+                { "Маляр", new List<string>{ "1. Иванов Пётр Сергеевич", "2. Сидоров Антоний Геннадьевич" } },
+                { "Плотник", new List<string>{"1. Козлов Виталий Александрович", "2. Пугачёв Александр Григорьевич"} },
+                { "Программист", new List<string>{"1. Петров Иван Петрович" } }
             };
 
             bool isOpen = true;
@@ -99,31 +99,28 @@ namespace Advanced_personnel_accounting
 
             foreach (var item in employees)
             {
-                if (item.Key == jobForDelete)
+                if (item.Key.ToLower() == jobForDelete.ToLower())
                 {
                     Console.WriteLine(string.Join(" ", item.Value));
                 }
             }
 
-            Console.WriteLine("Введите ФИО сотрудника для удаления: ");
-            string fullNameForDelete = Console.ReadLine();
+            Console.WriteLine("Введите номер сотрудника для удаления: ");
+            int numberToDelete = Convert.ToInt32(Console.ReadLine());
+            int numberToAdjust = 1;
 
             bool isInAccounting = employees.TryGetValue(jobForDelete, out List<string> names);
 
-            if (isInAccounting == true)
+            if (isInAccounting)
             {
-                for (int i = 0; i < names.Count; i++)
+                if (employees[jobForDelete].Count > 0)
                 {
-                    if (names[i] == fullNameForDelete)
-                    {
-                        employees[jobForDelete].Remove(fullNameForDelete);
-
-                        employees.Remove(jobForDelete);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Такого работника нет...");
-                    }
+                    employees[jobForDelete].RemoveAt(numberToDelete - numberToAdjust);
+                }
+                else
+                {
+                    employees.Remove(jobForDelete);
+                    Console.WriteLine("Такого работника нет...");
                 }
             }
         }
