@@ -35,7 +35,7 @@ namespace Advanced_personnel_accounting
                 switch (userInput)
                 {
                     case CommandAddDossier:
-                        AddInListOfDossiers(employees);
+                        AddDossier(employees);
                         break;
 
                     case CommandPrintAllTheDossier:
@@ -61,7 +61,7 @@ namespace Advanced_personnel_accounting
             }
         }
 
-        static void AddInListOfDossiers(Dictionary<string, List<string>> employees)
+        static void AddDossier(Dictionary<string, List<string>> employees)
         {
             Console.WriteLine($"Введите ФИО сотрудника: ");
             string fullNames = Console.ReadLine();
@@ -69,15 +69,6 @@ namespace Advanced_personnel_accounting
             Console.WriteLine($"Введите должность сотрудника: ");
             string fullPositions = Console.ReadLine();
 
-            AddJob(employees, fullPositions, fullNames);
-
-            ShowDossier(employees);
-
-            Console.Clear();
-        }
-
-        static void AddJob(Dictionary<string, List<string>> employees, string fullPositions, string fullNames)
-        {
             bool haveJob = employees.ContainsKey(fullPositions);
 
             if (haveJob == true)
@@ -86,8 +77,13 @@ namespace Advanced_personnel_accounting
             }
             else
             {
-                employees.Add(fullPositions, new List<string> { fullNames });
+                employees.Add(fullPositions, new List<string>());
+                employees[fullPositions].Add(fullNames);
             }
+
+            ShowDossier(employees);
+
+            Console.Clear();
         }
 
         static void RemoveDossier(Dictionary<string, List<string>> employees)
@@ -106,7 +102,17 @@ namespace Advanced_personnel_accounting
             }
 
             Console.WriteLine("Введите номер сотрудника для удаления: ");
-            int numberToDelete = Convert.ToInt32(Console.ReadLine());
+
+            int numberToDelete = 0;
+
+            while (numberToDelete > employees[jobForDelete].Count || numberToDelete <= 0)
+            {
+                while (int.TryParse(Console.ReadLine(), out numberToDelete) == false)
+                {
+                    Console.Write("Под таким номером нет сотрудника или введеное число не верного формата, еще раз: ");
+                }
+            }
+
             int numberToAdjust = 1;
 
             bool isInAccounting = employees.TryGetValue(jobForDelete, out List<string> names);
@@ -116,6 +122,11 @@ namespace Advanced_personnel_accounting
                 if (employees[jobForDelete].Count > 0)
                 {
                     employees[jobForDelete].RemoveAt(numberToDelete - numberToAdjust);
+
+                    if (employees[jobForDelete] == null)
+                    {
+                        employees.Remove(jobForDelete);
+                    }
                 }
                 else
                 {
@@ -134,7 +145,7 @@ namespace Advanced_personnel_accounting
 
             foreach (var item in employees)
             {
-                Console.WriteLine($"Сотрудник под номером {index}: {item.Key}: {string.Join(signOfSeparation, item.Value)}.");
+                Console.WriteLine($"Сотрудник под номером {index}: {item.Key}: {string.Join(signOfSeparation, item.Value)}");
                 index++;
             }
 
