@@ -11,30 +11,27 @@ namespace Merging_into_one_collection
             string[] array2 = new string[] { "три", "три", "четыре", "пять" };
 
             List<string> mergeList = new List<string>();
-
             mergeList.AddRange(array1);
 
-            for (int i = 0; i < mergeList.Count; i++)
-            {
-                for (int j = 0; j < array2.Length; j++)
-                {
-                    if (mergeList.Contains(array2[j]))
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        mergeList.Add(array2[j]);
-                    }
-                }
-            }
+            MergeList(mergeList, array2);
 
-            MergeList(mergeList);
+            ShowMergedList(mergeList);
 
             Console.ReadKey();
         }
 
-        public static void MergeList(List<string> mergeList)
+        public static void MergeList(List<string> mergeList, string[] array)
+        {
+            foreach (var item in array)
+            {
+                if (mergeList.Contains(item) == false)
+                {
+                    mergeList.Add(item);
+                }
+            }
+        }
+
+        public static void ShowMergedList(List<string> mergeList)
         {
             foreach (var item in mergeList)
             {
