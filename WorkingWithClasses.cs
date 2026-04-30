@@ -14,20 +14,20 @@ namespace WorkingWithClasses
 
     class Player
     {
-        private string Name;
-        private int Age;
-        private int Health;
+        private string _name;
+        private int _age;
+        private int _health;
 
         public Player(string name, int age, int health)
         {
-            Name = name;
-            Age = age;
-            Health = health;
+            _name = name;
+            _age = age;
+            _health = health;
         }
 
         public void ShowInfo()
         {
-            Console.WriteLine($"Имя - {Name}\nВозраст - {Age}\nЗдоровье - {Health}");
+            Console.WriteLine($"Имя - {_name}\nВозраст - {_age}\nЗдоровье - {_health}");
         }
     }
 }
