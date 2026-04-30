@@ -14,9 +14,9 @@ namespace WorkingWithClasses
 
     class Player
     {
-        public string Name;
-        public int Age;
-        public int Health;
+        private string Name;
+        private int Age;
+        private int Health;
 
         public Player(string name, int age, int health)
         {
